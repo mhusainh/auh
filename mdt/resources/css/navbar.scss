@@ -1,0 +1,216 @@
+.navbar-container {
+    display: flex;
+    flex-direction: row;
+    height: 80px;
+    background-color: #021A49;
+    color: #FFFFFF;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    // padding: 0 20px; // Menambahkan padding agar ada ruang di sisi kiri dan kanan
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Menambahkan shadow agar navbar terlihat mengambang
+}
+
+.navbar-logo {
+    margin-left: 20px;
+    img {
+        width: 180px;
+    }
+    cursor: pointer;
+}
+
+.navbar-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.navbar-toggle span {
+    width: 30px;
+    height: 3px;
+    background-color: #FFFFFF;
+    border-radius: 2px;
+}
+
+.navbar-main {
+    display: flex;
+    gap: 60px;
+    cursor: pointer;
+}
+
+.navbar-main-1 {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .pelayanan {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        position: relative;
+        cursor: pointer;
+
+        img {
+            transition: transform 0.3s ease;
+        }
+
+        &.active img {
+            transform: rotate(180deg); 
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            font-weight: 400;
+            background-color: #ffffff;
+            color: #000000;
+            border-radius: 0px 15px 15px 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            min-width: 300px;
+            z-index: 1000;
+            padding: 10px 20px;
+        }
+
+        &.active .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu li {
+            list-style: none;
+            padding: 10px 10px;
+
+            &:hover {
+                background-color: #D6D6D6;
+                border-radius: 15px 15px 15px 15px;
+            }
+
+            a {
+                text-decoration: none;
+                color: inherit;
+            }
+        }
+    }
+}
+
+
+.navbar-container-2 {
+    display: flex;
+    gap: 20px;
+
+    .navbar-main-2 {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        font-size: 18px;
+
+        .border-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background-image: url('../../public/svg/border.svg');
+            background-size: cover;
+            background-repeat: no-repeat;
+
+            img {
+                width: 44px;
+                height: 44px;
+            }
+        }
+    }
+
+    .main-notifikasi {
+        display: flex;
+        align-items: center;
+
+        .notifikasi {
+            width: 30px;
+            height: 35px;
+            background-image: url('../../public/svg/icon.svg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin-right: 20px;
+        }
+    }
+}
+
+.navbar-mobile {
+    display: none;
+    align-items: center;
+
+    .main-notifikasi {
+        display: none;
+        align-items: center;
+
+        .notifikasi {
+            width: 30px;
+            height: 35px;
+            background-image: url('../../public/svg/icon.svg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin-right: 20px;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-main {
+        display: none;
+    }
+
+    .navbar-mobile {
+        display: flex;
+
+        .navbar-toggle {
+            display: flex;
+        }
+
+        .main-notifikasi {
+            display: flex;
+        }
+    }
+
+    .navbar-main-1 {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .navbar-main {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-container.active .navbar-main {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        right: 0;
+        background-color: #021A49;
+        width: 100%;
+        align-items: flex-start;
+        padding: 20px;
+
+        .main-notifikasi {
+            display: none;
+        }
+    }
+
+    .navbar-container.active .navbar-toggle {
+        // Additional styling if needed
+    }
+}

@@ -14,12 +14,12 @@
     </div>
     <div class="navbar-main">
         <div class="navbar-main-1">
-            <div>Beranda</div>
+            <div><a href="/">Beranda</a></div>
             <div class="pelayanan">
                 Pelayanan
                 <span><img src="svg/dropdown-pelayanan.svg" alt=""></span>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Pencarian Barang Hilang</a></li>
+                    <li><a href="/laporan">Pencarian Barang Hilang</a></li>
                     <li><a href="#">Pencarian Orang Hilang</a></li>
                 </ul>
             </div>

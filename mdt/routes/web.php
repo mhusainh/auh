@@ -6,8 +6,8 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/about', function () {
-    return view('about', ['nama' => 'Muhammad Ridwan']);
+Route::get('/laporan', function () {
+    return view('laporan');
 });
 
 Route::get('/blog', function () {

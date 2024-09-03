@@ -7,7 +7,7 @@
 
 <body>
     <x-Navbar></x-Navbar>
-    <x-Body></x-Body>
+    <x-laporan></x-laporan>
     <x-Footer></x-Footer>
 </body>
 

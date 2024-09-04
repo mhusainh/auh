@@ -250,6 +250,10 @@
     </div>
 </div>
 
+<div class="buat-laporan">
+    <img src="./img/buatlaporan.png" alt="">
+</div>
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
     const images = [
@@ -259,7 +263,7 @@
         "./img/profile.png",
     ];
     let currentIndex = 0;
-
+    const buatLaporan = document.querySelector('.buat-laporan')
     function updateImage(imageElement, index) {
         imageElement.src = images[index];
     }
@@ -331,14 +335,15 @@
             currentIndex = images.indexOf(imageSrc);
             const imageContainerPopup = popUp.querySelector(".image-laporan");
             initializeImageNavigation(imageContainerPopup);
-
+            buatLaporan.style.display = 'none';
             popUp.style.display = "flex";
         });
     });
-
+    
     const buttonClose = document.querySelector(".button-close");
     buttonClose.addEventListener("click", function () {
         const popUp = document.querySelector(".popup");
+        buatLaporan.style.display = 'flex';
         popUp.style.display = "none";
     });
 });

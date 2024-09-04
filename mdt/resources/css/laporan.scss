@@ -494,6 +494,15 @@
         }
     }
 }
+.buat-laporan {
+    position: fixed;
+    cursor: pointer;
+    top: 80%;
+    right: 0%;
+    img {
+        width: 150px;
+    }
+}
 
 @media (max-width: 768px) {
     .laporan {
@@ -705,6 +714,16 @@
                 align-items: center;
                 margin-right: -25px;
             }
+        }
+    }
+    
+    .buat-laporan {
+        position: fixed;
+        cursor: pointer;
+        top: 85%;
+        right: 0%;
+        img {
+            width: 100px;
         }
     }
 }

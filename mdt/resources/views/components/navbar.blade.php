@@ -23,7 +23,7 @@
                     <li><a href="#">Pencarian Orang Hilang</a></li>
                 </ul>
             </div>
-            <div>Hubungi Kami</div>
+            <div><a href="/contact">Hubungi Kami</a></div>
         </div>
         <div class="navbar-container-2">
             <div class="navbar-main-2">

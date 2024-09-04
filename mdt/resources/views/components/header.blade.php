@@ -9,6 +9,7 @@
 @vite('resources/css/home.scss')
 @vite('resources/css/footer.scss')
 @vite('resources/css/laporan.scss')
+@vite('resources/css/buat-laporan.scss')
 <style>
     @font-face {
         font-family: "Font Awesome 5 Free-Solid";

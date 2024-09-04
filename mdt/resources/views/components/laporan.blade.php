@@ -251,7 +251,7 @@
 </div>
 
 <div class="buat-laporan">
-    <img src="./img/buatlaporan.png" alt="">
+    <a href="/buat-laporan"><img src="./img/buatlaporan.png" alt=""></a>
 </div>
 
 <script>

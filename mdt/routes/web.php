@@ -10,8 +10,8 @@ Route::get('/laporan', function () {
     return view('laporan');
 });
 
-Route::get('/blog', function () {
-    return view('blog');
+Route::get('/buat-laporan', function () {
+    return view('buat-laporan');
 });
 
 Route::get('/contact', function () {

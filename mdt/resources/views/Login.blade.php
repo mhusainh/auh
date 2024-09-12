@@ -29,7 +29,7 @@
         @csrf
         <input type="text" placeholder="Nama Lengkap" value="{{ old('name') }}" name="name" id="name">
         <input type="text" placeholder="Nama Induk Kependudukan" value="{{ old('nik') }}" name="nik" id="nik">
-        <input type="email" placeholder="email" value="{{ old('email') }}" name="email" id="email">
+        <input type="email" placeholder="Email" value="{{ old('email') }}" name="email" id="email">
         <input type="text" placeholder="No telpon/HP" value="{{ old('nomorhp') }}" name="nomorhp" id="nomorhp">
         <input type="password" placeholder="Password" value="" name="password" id="password">
         <input type="password" placeholder="Konfirmasi Password" value="" name="password_confirmation" id="password_confirmation">

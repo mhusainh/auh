@@ -1,19 +1,33 @@
 <?php
 
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home', ['tittle' => 'Home']);
+
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('login', [LoginController::class, 'index'], function () {
+        return view('login');
+    })->name('account.login');
+    Route::post('authenticate', [LoginController::class, 'authenticate'])->name('account.authenticate');
+    Route::post('register', [RegisterController::class, 'index'])->name('account.register');
 });
 
-Route::get('/laporan', function () {
-    return view('laporan', ['tittle' => 'Barang Hilang']);
-});
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('', function () {
+        return view('home', ['title' => 'Home']);
+    })->name('home');
 
-Route::get('/buat-laporan', function () {
-    return view('buat-laporan', ['tittle' => 'Buat Laporan Barang Hilang']);
-});
+    Route::get('laporan', function () {
+        return view('laporan', ['title' => 'Barang Hilang']);
+    });
 
-Route::get('/contact', function () {
-    return view('contact', ['tittle' => 'Hubungi Kami']);
+    Route::get('buat-laporan', function () {
+        return view('buat-laporan', ['title' => 'Buat Laporan Barang Hilang']);
+    });
+
+    Route::get('contact', function () {
+        return view('contact', ['title' => 'Hubungi Kami']);
+    });
 });

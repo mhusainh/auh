@@ -111,7 +111,11 @@
         align-items: center;
         gap: 20px;
         font-size: 18px;
-        color: #ffffff;
+        color: #B3B3B3;
+
+        &:hover{
+            color: #ffffff;
+        }
 
         .border-image {
             display: flex;

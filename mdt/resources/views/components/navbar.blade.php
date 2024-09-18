@@ -28,7 +28,7 @@
         </div>
         <div class="navbar-container-2">
             <div class="navbar-main-2">
-                <div>Husain</div>
+                <div>{{ explode(' ', Auth::user()->name)[0] }}</div>
                 <div class="border-image">
                     <img src="img/profile.png" alt="tes">
                 </div>

@@ -1,4 +1,4 @@
-<x-header>{{ $tittle }}</x-header>
+<x-header>{{ $title }}</x-header>
 
 <body>
     <x-Navbar></x-Navbar>

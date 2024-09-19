@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\BarangHilangController;
+use App\Models\BarangHilang;
 use Illuminate\Support\Facades\Route;
 
 
@@ -23,9 +25,8 @@ Route::group(['middleware' => 'auth'], function () {
         return view('laporan', ['title' => 'Barang Hilang']);
     });
 
-    Route::get('buat-laporan', function () {
-        return view('buat-laporan', ['title' => 'Buat Laporan Barang Hilang']);
-    });
+    Route::get('buat-laporan', [BarangHilangController::class, 'index'])->name('buat.laporan');
+    Route::post('buat-laporan', [BarangHilangController::class, 'fileUpload'])->name('upload.barang');
 
     Route::get('contact', function () {
         return view('contact', ['title' => 'Hubungi Kami']);

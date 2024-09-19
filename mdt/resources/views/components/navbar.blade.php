@@ -30,7 +30,7 @@
             <div class="navbar-main-2">
                 <div>{{ explode(' ', Auth::user()->name)[0] }}</div>
                 <div class="border-image">
-                    <img src="img/profile.png" alt="tes">
+                    <img src="{{ Storage::url(Auth::user()->photo) }}" alt="tes">
                 </div>
             </div>
             <div class="main-notifikasi">

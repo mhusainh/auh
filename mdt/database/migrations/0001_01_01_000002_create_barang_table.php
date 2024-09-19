@@ -11,14 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('baranghilang', function (Blueprint $table) {
+        Schema::create('barang_hilangs', function (Blueprint $table) {
             $table->id(); // ID untuk barang hilang
             $table->string('nama_barang'); // Nama barang
             $table->string('alamat_barang');
             $table->text('deskripsi_barang'); // Deskripsi barang
-            $table->string('gambar_barang')->nullable(); // Gambar barang, bisa nullable jika gambar tidak wajib
-            $table->boolean('status')->default(0); // Status barang sebagai boolean (0 = hilang, 1 = ditemukan)
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Foreign key mengarah ke tabel 'users'
+            $table->date('tanggal_hilang');
+            $table->string('gambar_barang1');
+            $table->string('gambar_barang2')->nullable();
+            $table->string('gambar_barang3')->nullable();
+            $table->string('gambar_barang4')->nullable();
+            $table->string('gambar_barang5')->nullable(); // Gambar barang, bisa nullable jika gambar tidak wajib
+            $table->enum('status',['Sudah Ditemukan','Belum Ditemukan'])->default('Belum Ditemukan'); // Status barang sebagai boolean (0 = hilang, 1 = ditemukan)
+            $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete(); // Foreign key mengarah ke tabel 'users'
             $table->timestamps(); // Tanggal create dan update
         });
     }

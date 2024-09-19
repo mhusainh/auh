@@ -257,7 +257,7 @@
     </div>
     
     <div class="buat-laporan">
-        <a href="/buat-laporan"><img src="./img/buatlaporan.png" alt=""></a>
+        <a href={{ route('buat.laporan') }}><img src="./img/buatlaporan.png" alt=""></a>
     </div>
     
     <script>

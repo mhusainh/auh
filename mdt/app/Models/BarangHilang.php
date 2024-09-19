@@ -2,25 +2,31 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class BarangHilang extends Model
 {
     use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var array<int, string|MyEnum>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'photo',
+        'nama_barang',
+        'alamat_barang',
+        'deskripsi_barang',
+        'gambar_barang1',
+        'gambar_barang2',
+        'gambar_barang3',
+        'gambar_barang4',
+        'gambar_barang5',
+        'status',
+        'user_id',
+        'tanggal_hilang',
     ];
 
     /**
@@ -29,8 +35,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        
     ];
 
     /**
@@ -41,8 +46,7 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+           
         ];
     }
 }

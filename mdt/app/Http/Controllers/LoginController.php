@@ -10,6 +10,9 @@ class LoginController extends Controller
 {
     public function index()
     {
+        if (Auth::check()) {
+            return redirect()->route('home');
+        }
         return view('login', ['title' => 'Website Terminal']);
     }
 
@@ -30,10 +33,10 @@ class LoginController extends Controller
             if (Auth::attempt($credentials)) {
                 return redirect()->route('home');
             } else {
-                return redirect()->route('account.login')->withErrors(['email' => 'Invalid email or password']);
+                return redirect()->back()->withErrors(['email' => 'Invalid email or password']);
             }
         } else {
-            return redirect()->route('account.login')->withInput()->withErrors($validator);
+            return redirect()->back()->withInput()->withErrors($validator);
         }
     }
 

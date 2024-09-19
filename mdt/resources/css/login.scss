@@ -45,6 +45,13 @@
                 font-size: 18px;
                 font-weight: bold;
             }
+            .invalid-feedback {
+                font-size: 14px;
+                margin-left: 5px;
+                margin-top: -15px; /* Supaya alert tidak terlalu jauh dari input */
+                margin-bottom: -15px; /* Menyesuaikan agar alert ada di antara jarak input */
+            }
+        
         }
     }
     

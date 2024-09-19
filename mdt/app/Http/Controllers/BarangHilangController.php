@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Carbon\Carbon;
 use App\Models\BarangHilang;
 use Exception;
 use Illuminate\Http\Request;
@@ -51,11 +51,19 @@ class BarangHilangController extends Controller
             }
             // dd($barangHilang);
             $barangHilang->save();
-            return redirect('laporan')->with('success', 'user added successfully');
+            return redirect()->route('lapor.barang')->with('success', 'user added successfully');
         }
     }
-    public function showlaporan(){
-        $barangHilang = new BarangHilang();
+    public function showlaporan(Request $request){
+        $sortOrder = $request->query('sort', 'latest');
+
+        if ($sortOrder == 'latest') {
+            $barangHilang = BarangHilang::with('user')->latest()->get();
+        } elseif ($sortOrder == 'oldest') {
+            $barangHilang = BarangHilang::with('user')->oldest()->get();
+        }
         
+        
+        return view('laporan', ['title' => 'Barang Hilang'], compact('barangHilang', 'sortOrder'));
     }
 }

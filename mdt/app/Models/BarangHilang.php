@@ -28,7 +28,10 @@ class BarangHilang extends Model
         'user_id',
         'tanggal_hilang',
     ];
-
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

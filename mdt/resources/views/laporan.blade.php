@@ -10,50 +10,54 @@
                 <div class="title-laporan">Laporan Barang Hilang</div>
                 <div class="navbar-laporan-urutkan">
                     <div class="urutkan">Urutkan : </div>
-                    <div class="terbaru">
-                        <div>Terbaru</div>
-                        <div>V</div>
-                    </div>
+                    <form action="{{ route('lapor.barang') }}">
+                        <select class="terbaru" name="sort" id="sort" onchange="this.form.submit()">
+                            <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Latest</option>
+                            <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Oldest</option>
+                        </select>
+                    </form>
                 </div>
             </div>
-            <div class="main-laporan">
-                <div class="header-laporan">
-                    <div class="title-user">
-                        <div class="title">Dompet Eiger Hitam</div>
-                        <div class="user"><img src="./img/profile.png" alt="">Mahmudi Husain Hasbullah</div>
-                    </div>
-                    <div class="date-time">
-                        <div class="date">13 September 2024</div>
-                        <div class="time">19:31</div>
-                    </div>
-                </div>
-                <div class="body-laporan">
-                    <div class="body-laporan-1">
-                        <div class="content-laporan">
-                            <div class="terakhir-dilihat">terakhir dilihat : <span>Jl. Gajah Raya</span></div>
-                            <div class="status">status : <span>Belum Ditemukan</span></div>
-                            <div class="detail">Detail : </div>
-                            <div class="content-detail">
-                                <p>Assalamualaikum lurr, INFO KEHILANGAN dulur mohon bantuannya apabila ada yg menemukan Dompet eiger Warna hitam saat naik sepeda dari tlogosari ke arah majapahit sekitaran jam 5 pagi tadi dulurr berisi KTP atas nama Husain , SIM , STNK , BPJS dan kartu atm mandiri dan Bni , uangnya cuma 14 rb kurang lebih, mohon di up ngge lurr bagi yg menemukan  ada imbalan 2m lurr (makasi mas)
-                                </p>
-                            </div>
+            @foreach($barangHilang as $hilang)
+                <div class="main-laporan">
+                    <div class="header-laporan">
+                        <div class="title-user">
+                            <div class="title">{{ $hilang->nama_barang }}</div>
+                            <div class="user"><img src="{{ Storage::url($hilang->user->photo) }}" alt="">{{ $hilang->user->name }}</div>
                         </div>
-                        <div class="image-laporan">
-                            <div class="arrow">
-                                <div class="arrow-left"><</div>
-                            </div>
-                            <div><img src="./img/dompet1.png" alt=""></div>
-                            <div class="arrow">
-                                <div class="arrow-right">></div>
-                            </div>
+                        <div class="date-time">
+                            <div class="date">{{ \Carbon\Carbon::parse($hilang->created_at)->translatedFormat('d F Y') }}</div>
+                            <div class="time">{{ \Carbon\Carbon::parse($hilang->created_at)->format('H:i') }}</div>
                         </div>
                     </div>
-                    <div class="footer-laporan">
-                        <div><span>comment-alt </span>12</div>
-                        <div><span>share-alt </span>11</div>
+                    <div class="body-laporan">
+                        <div class="body-laporan-1">
+                            <div class="content-laporan">
+                                <div class="terakhir-dilihat">terakhir dilihat : <span>{{ $hilang->alamat_barang }}</span></div>
+                                <div class="status">status : <span>{{ $hilang->status }}</span></div>
+                                <div class="detail">Detail : </div>
+                                <div class="content-detail">
+                                    <p>{{ $hilang->deskripsi_barang }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="image-laporan">
+                                <div class="arrow">
+                                    <div class="arrow-left"><</div>
+                                </div>
+                                <div><img src="{{ Storage::url($hilang->gambar_barang1) }}" alt=""></div>
+                                <div class="arrow">
+                                    <div class="arrow-right">></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer-laporan">
+                            <div><span>comment-alt </span>12</div>
+                            <div><span>share-alt </span>11</div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endforeach
             <div class="main-laporan">
                 <div class="header-laporan">
                     <div class="title-user">

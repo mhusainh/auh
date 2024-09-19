@@ -21,9 +21,7 @@ Route::group(['middleware' => 'auth'], function () {
         return view('home', ['title' => 'Home']);
     })->name('home');
 
-    Route::get('laporan', function () {
-        return view('laporan', ['title' => 'Barang Hilang']);
-    });
+    Route::get('laporan', [BarangHilangController::class, 'showlaporan'])->name('lapor.barang');
 
     Route::get('buat-laporan', [BarangHilangController::class, 'index'])->name('buat.laporan');
     Route::post('buat-laporan', [BarangHilangController::class, 'fileUpload'])->name('upload.barang');

@@ -19,7 +19,7 @@
             <x-nav-link :active="request()->is('laporan') || request()->is('#')">Pelayanan</x-nav-link>
             <span><img src="svg/dropdown-pelayanan.svg" alt=""></span>
             <ul class="dropdown-menu">
-                <li><a href="/laporan">Pencarian Barang Hilang</a></li>
+                <li><a href="{{ route('lapor.barang') }}">Pencarian Barang Hilang</a></li>
                 <li><a href="#">Pencarian Orang Hilang</a></li>
             </ul>
         </div>

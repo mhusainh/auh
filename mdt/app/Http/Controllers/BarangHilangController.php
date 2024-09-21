@@ -25,7 +25,6 @@ class BarangHilangController extends Controller
             'gambar_barang3' => 'nullable|image|mimes:jpeg,jpg,png',
             'gambar_barang4' => 'nullable|image|mimes:jpeg,jpg,png',
             'gambar_barang5' => 'nullable|image|mimes:jpeg,jpg,png',
-            'tanggal_hilang' => 'required|date',
         ]);
 
         if ($request->hasAny(['gambar_barang1', 'gambar_barang2', 'gambar_barang3', 'gambar_barang4', 'gambar_barang5'])) {

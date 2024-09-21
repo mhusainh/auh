@@ -14,7 +14,9 @@
     @vite('resources/css/footer.scss')
     @vite('resources/css/laporan.scss')
     @vite('resources/css/contact.scss')
+    @vite('resources/css/profile.scss')
     @vite('resources/css/buat-laporan.scss')
+    @vite('resources/css/edit-profile.scss')
     <style>
         @font-face {
             font-family: "Font Awesome 5 Free-Solid";

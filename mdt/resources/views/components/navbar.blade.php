@@ -28,7 +28,7 @@
         </div>
         <div class="navbar-container-2">
             <div class="navbar-main-2">
-                <div>{{ explode(' ', Auth::user()->name)[0] }}</div>
+                <div><x-nav-link href="/profile" :active="request()->is('profile')">{{ explode(' ', Auth::user()->name)[0] }}</x-nav-link></div>
                 <div class="border-image">
                     <img src="{{ Storage::url(Auth::user()->photo) }}" alt="tes">
                 </div>

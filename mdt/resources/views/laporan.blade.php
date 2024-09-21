@@ -12,8 +12,8 @@
                     <div class="urutkan">Urutkan : </div>
                     <form action="{{ route('lapor.barang') }}">
                         <select class="terbaru" name="sort" id="sort" onchange="this.form.submit()">
-                            <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Latest</option>
-                            <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Oldest</option>
+                            <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Terbaru</option>
+                            <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Terlama</option>
                         </select>
                     </form>
                 </div>
@@ -33,7 +33,8 @@
                     <div class="body-laporan">
                         <div class="body-laporan-1">
                             <div class="content-laporan">
-                                <div class="terakhir-dilihat">terakhir dilihat : <span>{{ $hilang->alamat_barang }}</span></div>
+                                <div class="terakhir-dilihat">Lokasi Terakhir : <span>{{ $hilang->alamat_barang }}</span></div>
+                                <div class="terakhir-dilihat">terakhir dilihat : <span>{{ \Carbon\Carbon::parse($hilang->tanggal_hilang)->translatedFormat('d F Y') }}</span></div>
                                 <div class="status">status : <span>{{ $hilang->status }}</span></div>
                                 <div class="detail">Detail : </div>
                                 <div class="content-detail">

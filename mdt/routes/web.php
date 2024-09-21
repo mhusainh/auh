@@ -29,4 +29,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('contact', function () {
         return view('contact', ['title' => 'Hubungi Kami']);
     });
+    Route::get('profile', function () {
+        return view('profile', ['title' => 'Profile']);
+    });
+    Route::get('edit-laporan', function () {
+        return view('edit-laporan', ['title' => 'Profile']);
+    });
+    Route::get('edit-profile', function () {
+        return view('edit-profile', ['title' => 'Profile']);
+    });
 });

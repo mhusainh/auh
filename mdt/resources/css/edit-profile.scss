@@ -1,0 +1,160 @@
+.edit-profile-container {
+    // margin-top: 80px;
+    width: 100%;
+    min-height: 750px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Poppins", sans-serif;
+
+    .edit-profile {
+        display: flex;
+        justify-content: center;
+        // background-color: aqua;
+        box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.678);
+        border-radius: 40px;
+        padding: 50px;
+        gap: 50px;
+
+        .pilih-foto {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            border: 2px solid #DFDFDF;
+            padding: 20px;
+
+            .image {
+                img {
+                    width: 180px;
+                    height: 200px;
+                }
+
+            }
+
+            .pilih-foto-container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                .pilih-image {
+                    cursor: pointer;
+                    text-align: center;
+                    border-radius: 10px;
+                    border: 2px solid #DFDFDF;
+                    width: 100%;
+                    font-weight: bold;
+                    padding: 5px;
+                }
+
+                .description-foto {
+                    text-align: justify;
+                    font-size: 8px;
+                    width: 180px;
+                    // background-color: aqua;
+                }
+             
+            }
+        }
+
+        .data-diri {
+            .title-data {
+                color: #8A8A8A;
+                font-size: 24px;
+                font-weight: bold;
+            }
+            .isi-data-form {
+                display: flex;
+                flex-direction: column;
+                .isi-data {
+                    display: flex;
+                    width: 600px;
+                    gap: 30px;
+                    .title-isi-data{
+                        // background-color: #8A8A8A;
+                        width: 200px;
+                    }
+                    span {
+                        color: #275ECA;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 12px;
+    width: 400px;
+    // text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    font-family: Arial, sans-serif;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+p {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 20px;
+}
+
+input[type="email"],
+input[type="text"] {
+    width: 90%;
+    padding: 10px;
+    border: 2px solid #000;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+button {
+    width: 90%;
+    padding: 12px;
+    background-color: #ccc;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #fff;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transisi halus untuk background color dan transform */
+}
+
+button:hover {
+    background-color: #275ECA;
+    // transform: scale(1.05); /* Sedikit perbesar tombol saat hover */
+}
+
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #888;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: black;
+}

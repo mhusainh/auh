@@ -48,8 +48,8 @@ class BarangHilangController extends Controller
             foreach ($paths as $field => $path) {
                 $barangHilang->$field = $path;
             }
-            // dd($barangHilang);
-            $barangHilang->save();
+            dd($barangHilang);
+            $barangHilang->save();  
             return redirect()->route('lapor.barang')->with('success', 'user added successfully');
         }
     }
@@ -64,5 +64,9 @@ class BarangHilangController extends Controller
         
         
         return view('laporan', ['title' => 'Barang Hilang'], compact('barangHilang', 'sortOrder'));
+    }
+    public function showprofile (){
+        $barangHilang = BarangHilang::where('user_id',Auth::user()->id)->get();
+        return view('profile', ['title' => 'Profile', 'barangHilang' => $barangHilang,]);
     }
 }

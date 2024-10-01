@@ -1,6 +1,6 @@
 <div class="navbar-container">
     <div class="navbar-logo">
-        <a href="/"><img  src="svg/logo.svg" alt="as"></img></a>
+        <a href="/"><img  src="{{ asset('svg/logo.svg') }}" alt="as"></img></a>
     </div>
     <div class="navbar-mobile">
         <div class="main-notifikasi">
@@ -28,7 +28,7 @@
         </div>
         <div class="navbar-container-2">
             <div class="navbar-main-2">
-                <div><x-nav-link href="/profile" :active="request()->is('profile')">{{ explode(' ', Auth::user()->name)[0] }}</x-nav-link></div>
+                <div><x-nav-link href="{{ route('edit-laporan') }}" :active="request()->is('profile')">{{ explode(' ', Auth::user()->name)[0] }}</x-nav-link></div>
                 <div class="border-image">
                     <img src="{{ Storage::url(Auth::user()->photo) }}" alt="tes">
                 </div>

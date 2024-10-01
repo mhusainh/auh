@@ -8,11 +8,11 @@
             <div class="profile-header">
                 <div class="profile-name">
                     <div class="profile-image-name">
-                        <div><img src="img/dompet2.png" alt="tes"></div>
-                        <div>Husain</div>
+                        <div><img src="{{ Storage::url(Auth::user()->photo) }}" alt="tes"></div>
+                        <div>{{ explode(' ', Auth::user()->name)[0] }}</div>
                     </div>
                     <div>
-                        <a href="/edit-profile"><img src="img/settings.png" alt="tes"
+                        <a href="{{ route('edit.profile', Crypt::encryptString(Auth::user()->id)) }}"><img src="img/settings.png" alt="tes"
                                 style="width: 30px; cursor:pointer"></a>
                     </div>
                 </div>
@@ -23,54 +23,56 @@
                 </div>
             </div>
             <div class="profile-main-container">
-                <div id="barangHilang" class="profile-main">
-                    <div class="profile-laporan-image">
-                        <div><img src="img/dompet2.png" alt="tes"></div>
-                        <div class="profile-laporan-description">
-                            <div class="profile-laporan-title">
-                                <div class="profile-laporan-title-name">Dompet Eiger Hitam</div>
-                                <div class="profile-laporan-container">
-                                    <div class="profile-laporan-lokasi">
-                                        <div>Lokasi terakhir : </div>
-                                        <div><span>Jl. Gajah Raya</span></div>
-                                    </div>
-                                    <div class="profile-laporan-status">
-                                        <div>Status : </div>
-                                        <div><span class="status-text">Belum ditemukan</span></div>
+                @foreach ($barangHilang as $hilang)
+                    <div id="barangHilang" class="profile-main">
+                        <div class="profile-laporan-image">
+                            <div><img src="{{ Storage::url($hilang->gambar_barang1) }}" alt="tes"></div>
+                            <div class="profile-laporan-description">
+                                <div class="profile-laporan-title">
+                                    <div class="profile-laporan-title-name">{{ $hilang->nama_barang }}</div>
+                                    <div class="profile-laporan-container">
+                                        <div class="profile-laporan-lokasi">
+                                            <div>Lokasi terakhir : </div>
+                                            <div><span>{{ $hilang->alamat_barang }}</span></div>
+                                        </div>
+                                        <div class="profile-laporan-status">
+                                            <div>Status : </div>
+                                            <div><span class="status-text">{{ $hilang->status }}</span></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="dropdown">
-                        <img src="img/more_vert.png" alt="more" onclick="toggleDropdown(this)"
-                            style="cursor: pointer">
-                        <div class="dropdown-content">
-                            <div class="dropdown-main"><a href="/edit-laporan">
-                                    <div class="dropdown-main-1">
-                                        <img src="img/edit.png" alt="">
-                                        <div>Ubah</div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="dropdown-main"><a href="javascript:void(0);" onclick="markAsFound(this)">
-                                    <div class="dropdown-main-1">
-                                        <img src="img/check_box.png" alt="">
-                                        <div>Sudah ditemukan</div>
-                                    </div>
-                                </a></div>
+                        <div class="dropdown">
+                            <img src="img/more_vert.png" alt="more" onclick="toggleDropdown(this)"
+                                style="cursor: pointer">
+                            <div class="dropdown-content">
+                                <div class="dropdown-main"><a href="/edit-laporan">
+                                        <div class="dropdown-main-1">
+                                            <img src="img/edit.png" alt="">
+                                            <div>Ubah</div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="dropdown-main"><a href="javascript:void(0);" onclick="markAsFound(this)">
+                                        <div class="dropdown-main-1">
+                                            <img src="img/check_box.png" alt="">
+                                            <div>Sudah ditemukan</div>
+                                        </div>
+                                    </a></div>
 
-                            <div class="dropdown-main"><a href="#">
-                                    <div class="dropdown-main-1">
-                                        <img src="img/delete.png" alt="">
-                                        <div><span>Hapus</span></div>
-                                    </div>
-                                </a>
+                                <div class="dropdown-main"><a href="#">
+                                        <div class="dropdown-main-1">
+                                            <img src="img/delete.png" alt="">
+                                            <div><span>Hapus</span></div>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div id="orangHilang" class="profile-main" style="display: none;">
+                @endforeach
+                <div id="orangHilang" class="profile-main-2" style="display: none;">
                     <div class="profile-laporan-image">
                         <div><img src="img/orang_hilang.png" alt="tes"></div>
                         <div class="profile-laporan-description">
@@ -142,7 +144,7 @@
 
         function toggleActive(laporan) {
             const laporan1 = document.querySelector('.profile-laporan-1');
-            const laporan2 = document.querySelector('.profile-laporan-2');
+            const laporan2 = document.querySelector('.profile-laporan-2'); 
             const barangHilang = document.getElementById('barangHilang');
             const orangHilang = document.getElementById('orangHilang');
 

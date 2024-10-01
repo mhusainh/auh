@@ -10,7 +10,7 @@
                 <div class="left-body">
                     <div class="title">Lapor Barang Hilang!</div>
                     <div class="text">Temukan barang hilang dengan mudah! Jangan biarkan kehilangan barang anda menghentikan aktivitas anda, buat laporan anda dan dapatkan kembali barang berharga anda</div>
-                    <div class="button-laporan">Buat Laporan</div>
+                    <div class="button-laporan"><a href="{{ route('lapor.barang') }}">Buat Laporan</a></div>
                 </div>
                 <div class="right-body"><img src="./img/delivery-package.png" alt=""></div>
             </div>
@@ -18,7 +18,7 @@
                 <div class="left-body">
                     <div class="title">Lapor orang hilang!</div>
                     <div class="text">Setiap detik sangat berarti! dengan jaringan dan komunitas yang luas, temukan, dan laporkan sehingga mereka dapat kembali ke rumah dengan aman</div>
-                    <div class="button-laporan">Buat Laporan</div>
+                    <div class="button-laporan"><a href="">Buat Laporan</a></div>
                 </div>
                 <div class="right-body"><img src="./img/people-package.png" alt=""></div>
             </div>

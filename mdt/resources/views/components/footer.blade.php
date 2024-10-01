@@ -1,7 +1,7 @@
 <div class="footer">
     <div class="footer-main">
         <div class="first-body">
-            <div class="logo"><img src="./img/logo-footer.png" alt=""></div>
+            <div class="logo"><img src="{{ asset('img/logo-footer.png') }}" alt=""></div>
             <div>Website Resmi Polda Jawa Tengah</div>
         </div>
         <div class="main-body">

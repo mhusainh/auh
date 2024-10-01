@@ -33,6 +33,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('edit-profile/{encryptedId}', [ProfileController::class, 'index'])->name('edit.profile');
 
     Route::post('/update-phone/{id}', [ProfileController::class, 'updatePhone'])->name('edit.phone');
-
-    Route::post('edit-email', [ProfileController::class, 'updateEmail'])->name('edit.email');
+    Route::post('/update-email/{id}', [ProfileController::class, 'updateEmail'])->name('edit.email');
+    Route::post('/update-profile/{id}', [ProfileController::class, 'updatePicture'])->name('edit.profilePicture');
 });

@@ -48,7 +48,7 @@ class BarangHilangController extends Controller
             foreach ($paths as $field => $path) {
                 $barangHilang->$field = $path;
             }
-            dd($barangHilang);
+            // dd($barangHilang);
             $barangHilang->save();  
             return redirect()->route('lapor.barang')->with('success', 'user added successfully');
         }

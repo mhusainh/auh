@@ -14,8 +14,8 @@
             // Validate the input data
             $validator = Validator::make($request->all(), [
                 'email' => 'required|email|unique:users',
-                'nik' => 'required|unique:users',
-                'nomorhp' => 'required|unique:users',
+                'nik' => 'required|unique:users|min:16',
+                'nomorhp' => 'required|unique:users|min:10',
                 'password' => 'required|confirmed|min:8', // Ensure password has minimum 8 characters
             ]);
 

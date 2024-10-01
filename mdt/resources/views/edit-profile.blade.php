@@ -85,6 +85,7 @@
         const modalDescription = document.getElementById("modal-description");
         const newDataInput = document.getElementById("new_data");
         const form = document.getElementById("update-form");
+        
 
         let currentType = '';
 
@@ -136,7 +137,7 @@
             const newData = newDataInput.value;
 
             if (currentType === 'email') {
-                form.action = "{{ route('edit.email') }}";
+                form.action = "{{ route('edit.email', Auth::user()->id) }}";
             } else if (currentType === 'phone') {
                 form.action = "{{ route('edit.phone', Auth::user()->id) }}";
             }
@@ -151,24 +152,48 @@
         const fileInput = document.getElementById('file-input');
         const profileImage = document.getElementById('profile-image');
         const pilihImageDiv = document.querySelector('.pilih-image');
-
+    
         pilihImageDiv.addEventListener('click', function() {
             fileInput.click();
         });
-
+    
         fileInput.addEventListener('change', function(event) {
             const file = event.target.files[0];
-
             if (file && file.type.startsWith('image/')) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     profileImage.src = e.target.result;
                 }
                 reader.readAsDataURL(file);
+    
+                // Mengirim gambar ke server via AJAX
+                uploadProfilePicture(file);
             } else {
                 alert("Silakan pilih file gambar dengan format .jpg, .jpeg, atau .png.");
             }
         });
+    
+        function uploadProfilePicture(file) {
+    let formData = new FormData();
+    formData.append('file', file); // Sesuaikan penamaan dengan yang diterima backend
+    formData.append('_token', '{{ csrf_token() }}'); // Menyertakan CSRF token
+
+    fetch("{{ route('edit.profilePicture', Auth::user()->id) }}", {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Gambar berhasil diunggah');
+        } else {
+            alert('Gagal mengunggah gambar');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
     </script>
 </body>
 

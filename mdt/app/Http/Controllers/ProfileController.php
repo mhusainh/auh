@@ -46,7 +46,7 @@ class profileController extends Controller
     public function updatePhone(Request $request, $id)
     {
         $request->validate([
-            'new_data' => 'required|numeric|min:10', // Pastikan nomor HP valid
+            'new_data' => 'required|numeric|digits_between:10,15', // Pastikan nomor HP valid
         ]);
         $user = User::find($id);
         if ($user) {
@@ -90,6 +90,7 @@ class profileController extends Controller
             $user->save();
 
             return response()->json(['success' => true, 'photo' => Storage::url($user->photo)]);
+
         }
 
         return response()->json(['success' => false]);

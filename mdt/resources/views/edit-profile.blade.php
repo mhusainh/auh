@@ -66,9 +66,10 @@
                     <!-- Form dengan action dinamis -->
                     <form id="update-form" method="POST" action="">
                         @csrf <!-- Tambahkan token CSRF untuk keamanan -->
+                        <input type="hidden" name="_method" value="PUT"> <!-- Hidden method for PUT -->
                         <input type="text" id="new_data" name="new_data" value="" required>
                         <button type="submit" id="submit-button">Simpan</button>
-                    </form>
+                    </form>                    
                 </div>
             </div>
         </div>
@@ -133,18 +134,18 @@
         }
 
         form.addEventListener("submit", function(event) {
-            event.preventDefault();
-            const newData = newDataInput.value;
+    event.preventDefault();
+    const newData = newDataInput.value;
 
-            if (currentType === 'email') {
-                form.action = "{{ route('edit.email', Auth::user()->id) }}";
-            } else if (currentType === 'phone') {
-                form.action = "{{ route('edit.phone', Auth::user()->id) }}";
-            }
+    if (currentType === 'email') {
+        form.action = "{{ route('edit.email', Auth::user()->id) }}";
+    } else if (currentType === 'phone') {
+        form.action = "{{ route('edit.phone', Auth::user()->id) }}";
+    }
 
-            modal.style.display = "none";
-            form.submit();
-        });
+    modal.style.display = "none";
+    form.submit(); // Now it will submit as POST with _method set to PUT
+});
     </script>
 
     {{-- Script Pilih Foto --}}
@@ -186,6 +187,9 @@
     .then(data => {
         if (data.success) {
             alert('Gambar berhasil diunggah');
+            setTimeout(() => {
+                    location.reload(); // Refresh the page
+                }, 200);
         } else {
             alert('Gagal mengunggah gambar');
         }

@@ -32,7 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('edit-laporan', [BarangHilangController::class, 'showprofile'])->name('edit-laporan');
     Route::get('edit-profile/{encryptedId}', [ProfileController::class, 'index'])->name('edit.profile');
 
-    Route::post('/update-phone/{id}', [ProfileController::class, 'updatePhone'])->name('edit.phone');
-    Route::post('/update-email/{id}', [ProfileController::class, 'updateEmail'])->name('edit.email');
+    Route::put('/update-phone/{id}', [ProfileController::class, 'updatePhone'])->name('edit.phone');
+    Route::put('/update-email/{id}', [ProfileController::class, 'updateEmail'])->name('edit.email');
     Route::post('/update-profile/{id}', [ProfileController::class, 'updatePicture'])->name('edit.profilePicture');
 });

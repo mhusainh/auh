@@ -15,7 +15,7 @@
                     dengan hati-hati dan pertimbangkan ke mana serta kepada siapa informasi tersebut disebarkan.</div>
                 <div><img src="./img/warning.png" alt=""></div>
             </div>
-            <form action="{{ route('upload.barang') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('upload.barang') }}" method="PUT" enctype="multipart/form-data">
                 @csrf
                 <div class="detail-barang">
                     <div class="title-detail-barang">
@@ -24,7 +24,7 @@
                     <div class="detail-input-barang">
                         <div class="nama-barang">
                             <div class="title-barang">Nama Barang</div>
-                            <div class="input-barang"><input type="text" placeholder="Contoh : Dompet eiger hitam"
+                            <div class="input-barang"><input type="text" placeholder="{{ $barangHilang->nama_barang }}"
                                     maxlength="30" name="nama_barang" id="nama_barang"></div>
                             <div class="ketentuan-penulisan">
                                 <div class="text-penulisan">*Tulis nama barang maks. 30 karakter</div>
@@ -34,7 +34,7 @@
                         <div class="lokasi-barang">
                             <div class="title-barang">Lokasi barang hilang</div>
                             <div class="input-barang"><input type="text"
-                                    placeholder="Contoh: Jl. Gajah raya, jatuh di depan gajah print" maxlength="60"
+                                    placeholder="{{ $barangHilang->alamat_barang }}" maxlength="60"
                                     name="alamat_barang" id="alamat_barang"></div>
                             <div class="ketentuan-penulisan">
                                 <div class="text-penulisan">*Tulis alamat terakhir barang sebelum hilang maks. 60
@@ -46,7 +46,8 @@
                         <div class="terakhir-barang">
                             <div class="title-barang">Terakhir terlihat</div>
                             <div class="input-barang">
-                                <input type="text" placeholder="dd/mm/yyyy" oninput="formatDate(this)" maxlength="10"
+                                <input type="text" placeholder="{{ \Carbon\Carbon::parse($barangHilang->created_at)->format('d/m/Y') }}
+" oninput="formatDate(this)" maxlength="10"
                                     name="tanggal_hilang" id="tanggal_hilang">
                             </div>
                         </div>

@@ -29,10 +29,14 @@ Route::group(['middleware' => 'auth'], function () {
         return view('profile', ['title' => 'Profile']);
     });
 
-    Route::get('edit-laporan', [BarangHilangController::class, 'showprofile'])->name('edit-laporan');
-    Route::get('edit-profile/{encryptedId}', [ProfileController::class, 'index'])->name('edit.profile');
+    Route::get('profile', [ProfileController::class, 'showprofile'])->name('profile');
 
-    Route::put('/update-phone/{id}', [ProfileController::class, 'updatePhone'])->name('edit.phone');
-    Route::put('/update-email/{id}', [ProfileController::class, 'updateEmail'])->name('edit.email');
-    Route::post('/update-profile/{id}', [ProfileController::class, 'updatePicture'])->name('edit.profilePicture');
+    Route::get('/edit-profile/{encryptedId}', [ProfileController::class, 'index'])->name('edit.profile');
+    Route::put('/update-phone/{encryptedId}', [ProfileController::class, 'updatePhone'])->name('edit.phone');
+    Route::put('/update-email/{encryptedId}', [ProfileController::class, 'updateEmail'])->name('edit.email');
+    Route::post('/update-profile/{encryptedId}', [ProfileController::class, 'updatePicture'])->name('edit.profilePicture');
+
+    Route::get('edit-laporan/{encryptedId}', [BarangHilangController::class, 'editLaporan'])->name('edit.laporan');
+    Route::put('update-status/{encryptedId}', [BarangHilangController::class, 'updateStatus'])->name('update.status');
+    Route::delete('delete-laporan/{encryptedId}', [BarangHilangController::class, 'deleteLaporan'])->name('delete.laporan');
 });

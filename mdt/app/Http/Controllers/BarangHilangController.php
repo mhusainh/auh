@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Carbon\Carbon;
 use App\Models\BarangHilang;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Crypt;
 
 class BarangHilangController extends Controller
 {
@@ -49,11 +51,12 @@ class BarangHilangController extends Controller
                 $barangHilang->$field = $path;
             }
             // dd($barangHilang);
-            $barangHilang->save();  
+            $barangHilang->save();
             return redirect()->route('lapor.barang')->with('success', 'user added successfully');
         }
     }
-    public function showlaporan(Request $request){
+    public function showlaporan(Request $request)
+    {
         $sortOrder = $request->query('sort', 'latest');
 
         if ($sortOrder == 'latest') {
@@ -61,12 +64,60 @@ class BarangHilangController extends Controller
         } elseif ($sortOrder == 'oldest') {
             $barangHilang = BarangHilang::with('user')->oldest()->get();
         }
-        
-        
+
+
         return view('laporan', ['title' => 'Barang Hilang'], compact('barangHilang', 'sortOrder'));
     }
-    public function showprofile (){
-        $barangHilang = BarangHilang::where('user_id',Auth::user()->id)->get();
-        return view('profile', ['title' => 'Profile', 'barangHilang' => $barangHilang,]);
+
+    public function editLaporan(Request $request, $encryptedId)
+    {
+        try {
+            $id = Crypt::decryptString($encryptedId); // Ganti decrypt dengan Crypt::decryptString
+            $barangHilang = BarangHilang::find($id);
+
+            if (!$barangHilang) {
+                return redirect()->back()->with('error', 'Data tidak ditemukan.');
+            }
+
+            return view('edit-laporan', ['title' => 'Edit Laporan'], compact('barangHilang'));
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+            return redirect()->back()->with('error', 'ID yang diberikan tidak valid.');
+        }
+    }
+
+    public function deleteLaporan($encryptedId)
+    {
+        try {
+            $id = Crypt::decryptString($encryptedId); // Ganti decrypt dengan Crypt::decrypt
+            $barangHilang = BarangHilang::findOrFail($id);
+            if (!$barangHilang) {
+                return redirect()->back()->with('error', 'Data tidak ditemukan.');
+            }
+            $barangHilang->delete();
+            return redirect()->back()->with('success', 'Data berhasil dihapus.');
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+            return redirect()->back()->with('error', 'ID yang diberikan tidak valid.');
+        }
+    }
+
+
+    public function updateStatus(Request $request, $encryptedId)
+    {
+        $request->validate([
+            'status' => 'required|in:Sudah Ditemukan',
+        ]);
+        try {
+            $id = Crypt::decryptString($encryptedId);
+            $barangHilang = BarangHilang::findOrFail($id);
+            if (!$barangHilang) {
+                return redirect()->back()->with('error', 'Data tidak ditemukan.');
+            }
+
+            $barangHilang->status = $request->status;
+            $barangHilang->update();
+            return redirect()->back()->with('success', 'Status berhasil diubah.');
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+            return redirect()->back()->with('error', 'ID yang diberikan tidak valid.');
+        }
     }
 }

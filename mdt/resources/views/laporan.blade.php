@@ -27,7 +27,8 @@
                         </div>
                         <div class="date-time">
                             <div class="date">{{ \Carbon\Carbon::parse($hilang->created_at)->translatedFormat('d F Y') }}</div>
-                            <div class="time">{{ \Carbon\Carbon::parse($hilang->created_at)->format('H:i') }}</div>
+                            <div class="time">{{ \Carbon\Carbon::parse($hilang->created_at)->setTimezone('Asia/Jakarta')->format('H:i') }}
+</div>
                         </div>
                     </div>
                     <div class="body-laporan">

@@ -1,6 +1,5 @@
 <x-header>{{ $title }}</x-header>
 
-
 <body>
     <x-Navbar></x-Navbar>
     <div class="profile-container">
@@ -9,17 +8,17 @@
                 <div class="profile-name">
                     <div class="profile-image-name">
                         <div><img src="{{ Storage::url(Auth::user()->photo) }}" alt="tes"></div>
-                        <div>{{ explode(' ', Auth::user()->name)[0] }}</div>
+                        <div>{{ Auth::user()->name }}</div>
                     </div>
                     <div>
-                        <a href="{{ route('edit.profile', Crypt::encryptString(Auth::user()->id)) }}"><img src="img/settings.png" alt="tes"
-                                style="width: 30px; cursor:pointer"></a>
+                        <a href="{{ route('edit.profile', Crypt::encryptString(Auth::user()->id)) }}">
+                            <img src="img/settings.png" alt="tes" style="width: 30px; cursor:pointer">
+                        </a>
                     </div>
                 </div>
                 <div class="profile-laporan">
                     <div class="profile-laporan-1 active" onclick="toggleActive('laporan1')">Laporan Barang Hilang</div>
-                    <div class="profile-laporan-2 inactive" onclick="toggleActive('laporan2')">Laporan Orang Hilang
-                    </div>
+                    <div class="profile-laporan-2 inactive" onclick="toggleActive('laporan2')">Laporan Orang Hilang</div>
                 </div>
             </div>
             <div class="profile-main-container">
@@ -44,30 +43,42 @@
                             </div>
                         </div>
                         <div class="dropdown">
-                            <img src="img/more_vert.png" alt="more" onclick="toggleDropdown(this)"
-                                style="cursor: pointer">
+                            <img src="img/more_vert.png" alt="more" onclick="toggleDropdown(this)" style="cursor: pointer">
                             <div class="dropdown-content">
-                                <div class="dropdown-main"><a href="/edit-laporan">
+                                <div class="dropdown-main">
+                                    <a href="{{ route('edit.laporan', Crypt::encryptString($hilang->id)) }}">
                                         <div class="dropdown-main-1">
                                             <img src="img/edit.png" alt="">
                                             <div>Ubah</div>
                                         </div>
                                     </a>
                                 </div>
-                                <div class="dropdown-main"><a href="javascript:void(0);" onclick="markAsFound(this)">
-                                        <div class="dropdown-main-1">
-                                            <img src="img/check_box.png" alt="">
-                                            <div>Sudah ditemukan</div>
-                                        </div>
-                                    </a></div>
-
-                                <div class="dropdown-main"><a href="#">
-                                        <div class="dropdown-main-1">
-                                            <img src="img/delete.png" alt="">
-                                            <div><span>Hapus</span></div>
-                                        </div>
-                                    </a>
+                                <div class="dropdown-main">
+                                    <form id="status-form-{{ $hilang->id }}" action="{{ route('update.status', Crypt::encryptString($hilang->id)) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="status" value="Sudah Ditemukan">
+                                        <a href="javascript:void(0);" onclick="document.getElementById('status-form-{{ $hilang->id }}').submit()">
+                                            <div class="dropdown-main-1">
+                                                <img src="img/check_box.png" alt="">
+                                                <div>Sudah ditemukan</div>
+                                            </div>
+                                        </a>
+                                    </form>
                                 </div>
+                                <div class="dropdown-main">
+                                    <form id="delete-form-{{ $hilang->id }}" action="{{ route('delete.laporan', Crypt::encryptString($hilang->id)) }}" method="POST">
+    @csrf
+    @method('DELETE')
+    <a href="javascript:void(0);" onclick="confirmDelete('delete-form-{{ $hilang->id }}')">
+        <div class="dropdown-main-1">
+            <img src="img/delete.png" alt="">
+            <div><span>Hapus</span></div>
+        </div>
+    </a>
+</form>
+
+                                </div>                                
                             </div>
                         </div>
                     </div>
@@ -92,8 +103,7 @@
                         </div>
                     </div>
                     <div class="dropdown">
-                        <img src="img/more_vert.png" alt="more" onclick="toggleDropdown(this)"
-                            style="cursor: pointer">
+                        <img src="img/more_vert.png" alt="more" onclick="toggleDropdown(this)" style="cursor: pointer">
                         <div class="dropdown-content">
                             <div class="dropdown-main"><a href="/edit-laporan">
                                     <div class="dropdown-main-1">
@@ -175,10 +185,14 @@
             }
             element.closest('.dropdown-content').classList.remove('show'); // Tutup dropdown setelah perubahan
         }
+
+        // Fungsi konfirmasi penghapusan
+        function confirmDelete(formId) {
+            if (confirm('Apakah Anda yakin ingin menghapus laporan ini?')) {
+                document.getElementById(formId).submit();
+            }
+        }
     </script>
-
-
 </body>
-
 
 </html>

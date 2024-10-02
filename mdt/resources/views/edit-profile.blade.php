@@ -80,72 +80,92 @@
     {{-- Script Modal untuk Ubah Email dan Nomor HP --}}
     <script>
         const modal = document.getElementById("modal-popup");
-        const spans = document.querySelectorAll("div.isi-data span");
-        const closeBtn = document.getElementsByClassName("close")[0];
-        const modalTitle = document.getElementById("modal-title");
-        const modalDescription = document.getElementById("modal-description");
-        const newDataInput = document.getElementById("new_data");
-        const form = document.getElementById("update-form");
-        
+const spans = document.querySelectorAll("div.isi-data span");
+const closeBtn = document.getElementsByClassName("close")[0];
+const modalTitle = document.getElementById("modal-title");
+const modalDescription = document.getElementById("modal-description");
+const newDataInput = document.getElementById("new_data");
+const form = document.getElementById("update-form");
 
-        let currentType = '';
+let currentType = '';
 
-        function openModal(type, currentValue) {
-            currentType = type;
+function openModal(type, currentValue) {
+    currentType = type;
 
-            if (type === 'email') {
-                modalTitle.innerText = 'Ubah Email';
-                modalDescription.innerText = 'Email hanya bisa diubah 1 kali dalam sebulan. Pastikan Email sudah benar.';
-                newDataInput.value = currentValue;
-                newDataInput.type = "email";
+    if (type === 'email') {
+        modalTitle.innerText = 'Ubah Email';
+        modalDescription.innerText = 'Email hanya bisa diubah 1 kali dalam sebulan. Pastikan Email sudah benar.';
+        newDataInput.value = currentValue;
+        newDataInput.type = "email";
 
-            } else if (type === 'phone') {
-                modalTitle.innerText = 'Ubah Nomor HP';
-                modalDescription.innerText =
-                    'Nomor HP hanya bisa diubah 1 kali dalam sebulan. Pastikan Nomor HP sudah benar.';
-                newDataInput.value = currentValue;
-                newDataInput.type = "text";
-            }
+    } else if (type === 'phone') {
+        modalTitle.innerText = 'Ubah Nomor HP';
+        modalDescription.innerText =
+            'Nomor HP hanya bisa diubah 1 kali dalam sebulan. Pastikan Nomor HP sudah benar.';
+        newDataInput.value = currentValue;
+        newDataInput.type = "text";
+    }
 
-            modal.style.display = "block";
+    modal.style.display = "block";
+}
+
+spans.forEach((span) => {
+    span.addEventListener("click", function () {
+        const parent = span.parentElement.previousElementSibling;
+        const currentValue = span.parentElement.textContent.trim().split(' ')[0];
+
+        if (parent.textContent.includes("Email")) {
+            openModal('email', currentValue);
+        } else if (parent.textContent.includes("Nomor HP")) {
+            openModal('phone', currentValue);
         }
+    });
+});
 
-        spans.forEach((span) => {
-            span.addEventListener("click", function() {
-                const parent = span.parentElement.previousElementSibling;
-                const currentValue = span.parentElement.textContent.trim().split(' ')[0];
+closeBtn.onclick = function () {
+    modal.style.display = "none";
+}
 
-                if (parent.textContent.includes("Email")) {
-                    openModal('email', currentValue);
-                } else if (parent.textContent.includes("Nomor HP")) {
-                    openModal('phone', currentValue);
-                }
-            });
-        });
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
 
-        closeBtn.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-
-        form.addEventListener("submit", function(event) {
+form.addEventListener("submit", function (event) {
     event.preventDefault();
     const newData = newDataInput.value;
 
     if (currentType === 'email') {
-        form.action = "{{ route('edit.email', Auth::user()->id) }}";
+        form.action = "{{ route('edit.email', Crypt::encryptString(Auth::user()->id)) }}";
     } else if (currentType === 'phone') {
-        form.action = "{{ route('edit.phone', Auth::user()->id) }}";
+        form.action = "{{ route('edit.phone', Crypt::encryptString(Auth::user()->id)) }}";
     }
 
     modal.style.display = "none";
-    form.submit(); // Now it will submit as POST with _method set to PUT
+
+    // Submit the form using AJAX to handle validation errors
+    fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        }
+    }).then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              alert(currentType === 'email' ? 'Email berhasil diubah!' : 'Nomor HP berhasil diubah!');
+              location.reload(); // Reload the page to show updated data
+          } else {
+              // Display error message if email or phone is already in use
+              alert(data.error || 'Terjadi kesalahan. Silakan coba lagi.');
+          }
+      }).catch(error => {
+          console.error('Error:', error);
+          alert('Terjadi kesalahan. Silakan coba lagi.');
+      });
 });
+
     </script>
 
     {{-- Script Pilih Foto --}}
@@ -179,7 +199,7 @@
     formData.append('file', file); // Sesuaikan penamaan dengan yang diterima backend
     formData.append('_token', '{{ csrf_token() }}'); // Menyertakan CSRF token
 
-    fetch("{{ route('edit.profilePicture', Auth::user()->id) }}", {
+    fetch("{{ route('edit.profilePicture', Crypt::encryptString(Auth::user()->id)) }}", {
         method: 'POST',
         body: formData
     })

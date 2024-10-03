@@ -18,7 +18,7 @@
                 <div class="left-body">
                     <div class="title">Lapor orang hilang!</div>
                     <div class="text">Setiap detik sangat berarti! dengan jaringan dan komunitas yang luas, temukan, dan laporkan sehingga mereka dapat kembali ke rumah dengan aman</div>
-                    <div class="button-laporan"><a href="">Buat Laporan</a></div>
+                    <div class="button-laporan"><a href="laporan-orang">Buat Laporan</a></div>
                 </div>
                 <div class="right-body"><img src="./img/people-package.png" alt=""></div>
             </div>

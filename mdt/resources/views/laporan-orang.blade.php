@@ -7,38 +7,37 @@
     <div class="laporan">
         <div class="laporan-barang-hilang">
             <div class="navbar-laporan">
-                <div class="title-laporan">Laporan Barang Hilang</div>
+                <div class="title-laporan">Laporan Orang Hilang</div>
                 <div class="navbar-laporan-urutkan">
                     <div class="urutkan">Urutkan : </div>
-                    <form action="{{ route('lapor.barang') }}">
+                    <form action="">
                         <select class="terbaru" name="sort" id="sort" onchange="this.form.submit()">
-                            <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Terbaru</option>
-                            <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Terlama</option>
+                            <option value="">Terbaru</option>
+                            <option value="">Terlama</option>
                         </select>
                     </form>
                 </div>
             </div>
-            @foreach($barangHilang as $hilang)
                 <div class="main-laporan">
                     <div class="header-laporan">
                         <div class="title-user">
-                            <div class="title">{{ $hilang->nama_barang }}</div>
-                            <div class="user"><img src="{{ Storage::url($hilang->user->photo) }}" alt="">{{ $hilang->user->name }}</div>
+                            <div class="title">Tes</div>
+                            <div class="user"><img src="" alt="">tes</div>
                         </div>
                         <div class="date-time">
-                            <div class="date">{{ \Carbon\Carbon::parse($hilang->created_at)->translatedFormat('d F Y') }}</div>
-                            <div class="time">{{ \Carbon\Carbon::parse($hilang->created_at)->setTimezone('Asia/Jakarta')->format('H:i') }}</div>
+                            <div class="date">28 September 2024</div>
+                            <div class="time">7 malam</div>
                         </div>
                     </div>
                     <div class="body-laporan">
                         <div class="body-laporan-1">
                             <div class="content-laporan">
-                                <div class="terakhir-dilihat">Lokasi Terakhir : <span>{{ $hilang->alamat_barang }}</span></div>
-                                <div class="terakhir-dilihat">terakhir dilihat : <span>{{ \Carbon\Carbon::parse($hilang->tanggal_hilang)->translatedFormat('d F Y') }}</span></div>
-                                <div class="status">status : <span>{{ $hilang->status }}</span></div>
+                                <div class="terakhir-dilihat">Lokasi Terakhir : <span>Genuk</span></div>
+                                <div class="terakhir-dilihat">terakhir dilihat : <span>28 September 2024</span></div>
+                                <div class="status">status : <span>Belum ditemukan</span></div>
                                 <div class="detail">Detail : </div>
                                 <div class="content-detail">
-                                    <p>{{ $hilang->deskripsi_barang }}
+                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nihil reprehenderit tempora repellendus ipsam enim ea ratione, fugit adipisci incidunt dolores dicta ipsa repellat vitae est illum dolorem, facere, cumque perspiciatis!
                                     </p>
                                 </div>
                             </div>
@@ -46,7 +45,7 @@
                                 <div class="arrow">
                                     <div class="arrow-left"><</div>
                                 </div>
-                                <div><img src="{{ Storage::url($hilang->gambar_barang1) }}" alt=""></div>
+                                <div><img src="" alt=""></div>
                                 <div class="arrow">
                                     <div class="arrow-right">></div>
                                 </div>
@@ -58,7 +57,6 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
         </div>
     </div>
     
@@ -186,7 +184,7 @@
     </div>
     
     <div class="buat-laporan">
-        <a href={{ route('buat.laporan') }}><img src="./img/buatlaporan.png" alt=""></a>
+        <a href="buat-laporan-orang"><img src="./img/buatlaporan.png" alt=""></a>
     </div>
     
     <script>

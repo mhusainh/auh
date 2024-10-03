@@ -19,6 +19,12 @@ Route::group(['middleware' => 'auth'], function () {
     })->name('home');
 
     Route::get('laporan', [BarangHilangController::class, 'showlaporan'])->name('lapor.barang');
+    Route::get('laporan-orang', function () {
+        return view('laporan-orang', ['title' => 'Hubungi Kami']);
+    });
+    Route::get('buat-laporan-orang', function () {
+        return view('buat-laporan-orang', ['title' => 'Hubungi Kami']);
+    });
     Route::get('buat-laporan', [BarangHilangController::class, 'index'])->name('buat.laporan');
     Route::post('buat-laporan', [BarangHilangController::class, 'fileUpload'])->name('upload.barang');
     Route::get('contact', function () {

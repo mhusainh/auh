@@ -13,7 +13,7 @@
                     dengan bantuan orang lain, hal ini juga bisa membuat Pencuri atau pihak yang tidak bertanggung jawab
                     mungkin akan semakin waspada jika mengetahui bahwa barang tersebut sedang dicari. Sebaiknya bagikan
                     dengan hati-hati dan pertimbangkan ke mana serta kepada siapa informasi tersebut disebarkan.</div>
-                <div><img src="./img/warning.png" alt=""></div>
+                <div><img src="./img/warning.png" alt="tes"></div>
             </div>
             <form action="{{ route('upload.barang') }}" method="POST" enctype="multipart/form-data">
                 @csrf

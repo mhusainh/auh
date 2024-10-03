@@ -3,7 +3,6 @@
 
 <body>
     <x-Navbar></x-Navbar>
-
     <div class="buat-laporan-container">
         <div class="halaman-buat-laporan">
             <div class="title-buat-laporan">Ubah Laporan Barang Hilang</div>
@@ -13,7 +12,7 @@
                     dengan bantuan orang lain, hal ini juga bisa membuat Pencuri atau pihak yang tidak bertanggung jawab
                     mungkin akan semakin waspada jika mengetahui bahwa barang tersebut sedang dicari. Sebaiknya bagikan
                     dengan hati-hati dan pertimbangkan ke mana serta kepada siapa informasi tersebut disebarkan.</div>
-                <div><img src="./img/warning.png" alt=""></div>
+                <div><img src="{{ asset('img/warning.png') }}" alt=""></div>
             </div>
             <form action="{{ route('upload.barang') }}" method="PUT" enctype="multipart/form-data">
                 @csrf
@@ -24,8 +23,9 @@
                     <div class="detail-input-barang">
                         <div class="nama-barang">
                             <div class="title-barang">Nama Barang</div>
-                            <div class="input-barang"><input type="text" placeholder="{{ $barangHilang->nama_barang }}"
-                                    maxlength="30" name="nama_barang" id="nama_barang"></div>
+                            <div class="input-barang"><input type="text"
+                                    placeholder="{{ $barangHilang->nama_barang }}" maxlength="30" name="nama_barang"
+                                    id="nama_barang"></div>
                             <div class="ketentuan-penulisan">
                                 <div class="text-penulisan">*Tulis nama barang maks. 30 karakter</div>
                                 <div class="maksimal-penulisan">0/30</div>
@@ -34,8 +34,8 @@
                         <div class="lokasi-barang">
                             <div class="title-barang">Lokasi barang hilang</div>
                             <div class="input-barang"><input type="text"
-                                    placeholder="{{ $barangHilang->alamat_barang }}" maxlength="60"
-                                    name="alamat_barang" id="alamat_barang"></div>
+                                    placeholder="{{ $barangHilang->alamat_barang }}" maxlength="60" name="alamat_barang"
+                                    id="alamat_barang"></div>
                             <div class="ketentuan-penulisan">
                                 <div class="text-penulisan">*Tulis alamat terakhir barang sebelum hilang maks. 60
                                     karakter
@@ -46,40 +46,40 @@
                         <div class="terakhir-barang">
                             <div class="title-barang">Terakhir terlihat</div>
                             <div class="input-barang">
-                                <input type="text" placeholder="{{ \Carbon\Carbon::parse($barangHilang->created_at)->format('d/m/Y') }}
-" oninput="formatDate(this)" maxlength="10"
-                                    name="tanggal_hilang" id="tanggal_hilang">
+                                <input type="text"
+                                    placeholder="{{ \Carbon\Carbon::parse($barangHilang->created_at)->format('d/m/Y') }}"
+                                    oninput="formatDate(this)" maxlength="10" name="tanggal_hilang" id="tanggal_hilang">
                             </div>
                         </div>
                         <div class="foto-barang">
                             <div class="title-barang">Foto Barang</div>
                             <div class="input-gambar">
                                 <div class="input-barang-1">
-                                    <img id="img1" src="./img/addfoto1.png" alt=""
+                                    <img id="img1" src="{{ asset('img/addfoto1.png') }}" alt=""
                                         onclick="triggerFileInput('fileInput1')">
                                     <input type="file" id="fileInput1" accept="image/*" style="display: none;"
                                         onchange="previewImage(this, 'img1')" name="gambar_barang1" id="gambar_barang1">
                                 </div>
                                 <div class="input-barang-1">
-                                    <img id="img2" src="./img/addfoto2.png" alt=""
+                                    <img id="img2" src="{{ asset('img/addfoto2.png') }}" alt=""
                                         onclick="triggerFileInput('fileInput2')">
                                     <input type="file" id="fileInput2" accept="image/*" style="display: none;"
                                         onchange="previewImage(this, 'img2')" name="gambar_barang2" id="gambar_barang2">
                                 </div>
                                 <div class="input-barang-1">
-                                    <img id="img3" src="./img/addfoto3.png" alt=""
+                                    <img id="img3" src="{{ asset('img/addfoto3.png') }}" alt=""
                                         onclick="triggerFileInput('fileInput3')">
                                     <input type="file" id="fileInput3" accept="image/*" style="display: none;"
                                         onchange="previewImage(this, 'img3')" name="gambar_barang3" id="gambar_barang3">
                                 </div>
                                 <div class="input-barang-1">
-                                    <img id="img4" src="./img/addfoto4.png" alt=""
+                                    <img id="img4" src="{{ asset('img/addfoto4.png') }}" alt=""
                                         onclick="triggerFileInput('fileInput4')">
                                     <input type="file" id="fileInput4" accept="image/*" style="display: none;"
                                         onchange="previewImage(this, 'img4')" name="gambar_barang4" id="gambar_barang4">
                                 </div>
                                 <div class="input-barang-1">
-                                    <img id="img5" src="./img/addfoto5.png" alt=""
+                                    <img id="img5" src="{{ asset('img/addfoto5.png') }}" alt=""
                                         onclick="triggerFileInput('fileInput5')">
                                     <input type="file" id="fileInput5" accept="image/*" style="display: none;"
                                         onchange="previewImage(this, 'img5')" name="gambar_barang5"

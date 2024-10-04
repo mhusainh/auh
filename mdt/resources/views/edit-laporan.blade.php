@@ -14,8 +14,9 @@
                     dengan hati-hati dan pertimbangkan ke mana serta kepada siapa informasi tersebut disebarkan.</div>
                 <div><img src="{{ asset('img/warning.png') }}" alt=""></div>
             </div>
-            <form action="{{ route('upload.barang') }}" method="PUT" enctype="multipart/form-data">
+            <form action="{{ route('upload.barang') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <div class="detail-barang">
                     <div class="title-detail-barang">
                         <div class="title-detail-barang1">Detail Barang</div>
@@ -54,37 +55,17 @@
                         <div class="foto-barang">
                             <div class="title-barang">Foto Barang</div>
                             <div class="input-gambar">
-                                <div class="input-barang-1">
-                                    <img id="img1" src="{{ asset('img/addfoto1.png') }}" alt=""
-                                        onclick="triggerFileInput('fileInput1')">
-                                    <input type="file" id="fileInput1" accept="image/*" style="display: none;"
-                                        onchange="previewImage(this, 'img1')" name="gambar_barang1" id="gambar_barang1">
-                                </div>
-                                <div class="input-barang-1">
-                                    <img id="img2" src="{{ asset('img/addfoto2.png') }}" alt=""
-                                        onclick="triggerFileInput('fileInput2')">
-                                    <input type="file" id="fileInput2" accept="image/*" style="display: none;"
-                                        onchange="previewImage(this, 'img2')" name="gambar_barang2" id="gambar_barang2">
-                                </div>
-                                <div class="input-barang-1">
-                                    <img id="img3" src="{{ asset('img/addfoto3.png') }}" alt=""
-                                        onclick="triggerFileInput('fileInput3')">
-                                    <input type="file" id="fileInput3" accept="image/*" style="display: none;"
-                                        onchange="previewImage(this, 'img3')" name="gambar_barang3" id="gambar_barang3">
-                                </div>
-                                <div class="input-barang-1">
-                                    <img id="img4" src="{{ asset('img/addfoto4.png') }}" alt=""
-                                        onclick="triggerFileInput('fileInput4')">
-                                    <input type="file" id="fileInput4" accept="image/*" style="display: none;"
-                                        onchange="previewImage(this, 'img4')" name="gambar_barang4" id="gambar_barang4">
-                                </div>
-                                <div class="input-barang-1">
-                                    <img id="img5" src="{{ asset('img/addfoto5.png') }}" alt=""
-                                        onclick="triggerFileInput('fileInput5')">
-                                    <input type="file" id="fileInput5" accept="image/*" style="display: none;"
-                                        onchange="previewImage(this, 'img5')" name="gambar_barang5"
-                                        id="gambar_barang5">
-                                </div>
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <div class="input-barang-1">
+                                        <img id="img{{ $i }}"
+                                            src="{{ !empty($barangHilang->{'gambar_barang' . $i}) ? Storage::url($barangHilang->{'gambar_barang' . $i}) : asset('img/addfoto' . $i . '.png') }}"
+                                            alt="" onclick="triggerFileInput('fileInput{{ $i }}')">
+                                        <input type="file" id="fileInput{{ $i }}" accept="image/*"
+                                            style="display: none;"
+                                            onchange="previewImage(this, 'img{{ $i }}')"
+                                            name="gambar_barang{{ $i }}">
+                                    </div>
+                                @endfor
                             </div>
                         </div>
                         <div class="deskripsi-barang">

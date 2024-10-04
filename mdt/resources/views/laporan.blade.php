@@ -188,14 +188,15 @@
     <div class="buat-laporan">
         <a href={{ route('buat.laporan') }}><img src="./img/buatlaporan.png" alt=""></a>
     </div>
-    
+    @foreach($barangHilang as $hilang)
     <script>
         document.addEventListener("DOMContentLoaded", function () {
         const images = [
-            "./img/dompet1.png",
-            "./img/dompet2.png",
-            "./img/dompet3.png",
-            "./img/profile.png",
+            "{{ Storage::url($hilang->gambar_barang1) }}",
+            "{{ Storage::url($hilang->gambar_barang2) }}",
+            "{{ Storage::url($hilang->gambar_barang3) }}",
+            "{{ Storage::url($hilang->gambar_barang4) }}",
+            "{{ Storage::url($hilang->gambar_barang5) }}",
         ];
         let currentIndex = 0;
         const buatLaporan = document.querySelector('.buat-laporan')
@@ -283,7 +284,7 @@
         });
     });
     </script>
-    
+    @endforeach
     <x-Footer></x-Footer>
 </body>
 

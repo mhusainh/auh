@@ -53,37 +53,14 @@
                         <div class="foto-barang">
                             <div class="title-barang">Foto Barang</div>
                             <div class="input-gambar">
+                                @for($i = 1; $i<=5 ; $i++)
                                 <div class="input-barang-1">
-                                    <img id="img1" src="./img/addfoto1.png" alt=""
-                                        onclick="triggerFileInput('fileInput1')">
-                                    <input type="file" id="fileInput1" accept="image/*" style="display: none;"
-                                        onchange="previewImage(this, 'img1')" name="gambar_barang1" id="gambar_barang1">
+                                    <img id="img{{ $i }}" src="./img/addfoto{{ $i }}.png" alt=""
+                                        onclick="triggerFileInput('fileInput{{ $i }}')">
+                                    <input type="file" id="fileInput{{ $i }}" accept="image/*" style="display: none;"
+                                        onchange="previewImage(this, 'img{{ $i }}')" name="gambar_barang{{ $i }}" id="gambar_barang{{ $i }}">
                                 </div>
-                                <div class="input-barang-1">
-                                    <img id="img2" src="./img/addfoto2.png" alt=""
-                                        onclick="triggerFileInput('fileInput2')">
-                                    <input type="file" id="fileInput2" accept="image/*" style="display: none;"
-                                        onchange="previewImage(this, 'img2')" name="gambar_barang2" id="gambar_barang2">
-                                </div>
-                                <div class="input-barang-1">
-                                    <img id="img3" src="./img/addfoto3.png" alt=""
-                                        onclick="triggerFileInput('fileInput3')">
-                                    <input type="file" id="fileInput3" accept="image/*" style="display: none;"
-                                        onchange="previewImage(this, 'img3')" name="gambar_barang3" id="gambar_barang3">
-                                </div>
-                                <div class="input-barang-1">
-                                    <img id="img4" src="./img/addfoto4.png" alt=""
-                                        onclick="triggerFileInput('fileInput4')">
-                                    <input type="file" id="fileInput4" accept="image/*" style="display: none;"
-                                        onchange="previewImage(this, 'img4')" name="gambar_barang4" id="gambar_barang4">
-                                </div>
-                                <div class="input-barang-1">
-                                    <img id="img5" src="./img/addfoto5.png" alt=""
-                                        onclick="triggerFileInput('fileInput5')">
-                                    <input type="file" id="fileInput5" accept="image/*" style="display: none;"
-                                        onchange="previewImage(this, 'img5')" name="gambar_barang5"
-                                        id="gambar_barang5">
-                                </div>
+                                @endfor
                             </div>
                         </div>
                         <div class="deskripsi-barang">

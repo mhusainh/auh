@@ -100,7 +100,8 @@ class OrangHilangController extends Controller
         return view('laporan-orang', ['title' => 'Orang Hilang'], compact('orangHilang', 'sortOrder'));
     }
 
-    public function editLaporan (Request $request, $encryptedId) {
+    public function editLaporan(Request $request, $encryptedId)
+    {
         try {
             $id = Crypt::decryptString($encryptedId); // Ganti decrypt dengan Crypt::decryptString
             $orangHilang = OrangHilang::find($id);
@@ -112,6 +113,64 @@ class OrangHilangController extends Controller
             return view('edit-laporan-orang', ['title' => 'Edit Laporan'], compact('orangHilang'));
         } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
             return redirect()->back()->with('error', 'ID yang diberikan tidak valid.');
+        }
+    }
+
+    public function updateLaporan(Request $request, $encryptedId)
+    {
+        try {
+            // Dekripsi ID yang dienkripsi
+            $id = Crypt::decryptString($encryptedId);
+            $orangHilang = OrangHilang::find($id);
+
+            // Periksa apakah data orang hilang ditemukan
+            if (!$orangHilang) {
+                return redirect()->back()->with('error', 'Data orang hilang tidak ditemukan.');
+            }
+
+            // Validasi input yang diizinkan untuk diperbarui
+            $request->validate([
+                'nama_orang' => 'nullable|string|max:255',
+                'usia' => 'nullable|string|max:255',
+                'alamat_orang' => 'nullable|string|max:255',
+                'deskripsi_orang' => 'nullable|string',
+                'gambar_orang' => 'nullable|image|mimes:jpeg,jpg,png,gif,svg|max:2048', // Validasi gambar
+            ]);
+
+            // Proses upload gambar jika ada file yang diunggah
+            if ($request->hasFile('gambar_orang')) {
+                // Jika ada gambar lama, hapus gambar lama
+                if ($orangHilang->gambar_orang && Storage::disk('public')->exists($orangHilang->gambar_orang)) {
+                    Storage::disk('public')->delete($orangHilang->gambar_orang);
+                }
+                // Upload gambar baru
+                $file = $request->file('gambar_orang');
+                $path = $file->storeAs('images/' . Auth::user()->id . '/OrangHilang', $file->hashName(), 'public');
+                $orangHilang->gambar_orang = $path;
+            }
+
+            // Update field lainnya jika diberikan
+            if ($request->filled('nama_orang')) {
+                $orangHilang->nama_orang = $request->nama_orang;
+            }
+            if ($request->filled('usia')) {
+                // Hanya ambil angka dari input usia
+                $usia = preg_replace('/[^0-9]/', '', $request->usia);
+                $orangHilang->usia = intval($usia);
+            }
+            if ($request->filled('alamat_orang')) {
+                $orangHilang->alamat_orang = $request->alamat_orang;
+            }
+            if ($request->filled('deskripsi_orang')) {
+                $orangHilang->deskripsi_orang = $request->deskripsi_orang;
+            }
+
+            // Simpan perubahan
+            $orangHilang->update();
+
+            return redirect()->route('profile')->with('success', 'Laporan orang hilang berhasil diperbarui.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
@@ -160,7 +219,7 @@ class OrangHilangController extends Controller
             }
 
             $orangHilang->status = $request->status;
-            
+
             $orangHilang->update();
             return redirect()->back()->with('success', 'Status berhasil diubah.');
         } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {

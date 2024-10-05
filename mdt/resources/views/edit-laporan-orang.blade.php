@@ -19,14 +19,14 @@
                 @method('PUT')
                 <div class="detail-barang">
                     <div class="title-detail-barang">
-                        <div class="title-detail-barang1">Detail Barang</div>
+                        <div class="title-detail-barang1">Detail Orang</div>
                     </div>
                     <div class="detail-input-barang">
                         <div class="nama-barang">
                             <div class="title-barang">Nama Orang</div>
                             <div class="input-barang"><input type="text"
-                                    placeholder="{{ $orangHilang->nama_orang }}" maxlength="30" name="nama_barang"
-                                    id="nama_barang"></div>
+                                    placeholder="{{ $orangHilang->nama_orang }}" maxlength="30" name="nama_orang"
+                                    id="nama_orang"></div>
                             <div class="ketentuan-penulisan">
                                 <div class="text-penulisan">*Tulis nama barang maks. 30 karakter</div>
                                 <div class="maksimal-penulisan">0/30</div>
@@ -35,8 +35,8 @@
                         <div class="lokasi-barang">
                             <div class="title-barang">Lokasi orang hilang</div>
                             <div class="input-barang"><input type="text"
-                                    placeholder="{{ $orangHilang->alamat_barang }}" maxlength="60" name="alamat_barang"
-                                    id="alamat_barang"></div>
+                                    placeholder="{{ $orangHilang->alamat_orang }}" maxlength="60" name="alamat_orang"
+                                    id="alamat_orang"></div>
                             <div class="ketentuan-penulisan">
                                 <div class="text-penulisan">*Tulis alamat terakhir barang sebelum hilang maks. 60
                                     karakter
@@ -45,36 +45,29 @@
                             </div>
                         </div>
                         <div class="terakhir-barang">
-                            <div class="title-barang">Terakhir terlihat</div>
+                            <div class="title-barang">Umur</div>
                             <div class="input-barang">
-                                <input type="text"
-                                    placeholder="{{ \Carbon\Carbon::parse($orangHilang->created_at)->format('d/m/Y') }}"
-                                    oninput="formatDate(this)" maxlength="10" name="tanggal_hilang" id="tanggal_hilang">
+                                <input type="text" placeholder="{{ $orangHilang->usia }} Tahun" oninput="formatUsia(this)" maxlength="10" name="usia" id="usia">
                             </div>
                         </div>
                         <div class="foto-barang">
-                            <div class="title-barang">Foto Barang</div>
+                            <div class="title-barang">Foto Orang</div>
                             <div class="input-gambar">
-                                @for ($i = 1; $i <= 5; $i++)
-                                    <div class="input-barang-1">
-                                        <img id="img{{ $i }}"
-                                            src="{{ !empty($orangHilang->{'gambar_barang' . $i}) ? Storage::url($orangHilang->{'gambar_barang' . $i}) : asset('img/addfoto' . $i . '.png') }}"
-                                            alt="" onclick="triggerFileInput('fileInput{{ $i }}')">
-                                        <input type="file" id="fileInput{{ $i }}" accept="image/*"
-                                            style="display: none;"
-                                            onchange="previewImage(this, 'img{{ $i }}')"
-                                            name="gambar_barang{{ $i }}">
-                                    </div>
-                                @endfor
+                                <div class="input-barang-1">
+                                    <img id="img1" src="{{ storage::url($orangHilang->gambar_orang) }}" alt=""
+                                        onclick="triggerFileInput('fileInput1')">
+                                    <input type="file" id="fileInput1" accept="image/*" style="display: none;"
+                                        onchange="previewImage(this, 'img1')" name="gambar_orang" id="gambar_orang">
+                                </div>
                             </div>
                         </div>
                         <div class="deskripsi-barang">
-                            <div class="title-barang">Deskripsi barang hilang</div>
+                            <div class="title-barang">Deskripsi orang hilang</div>
                             <div class="input-barang">
-                                <textarea rows="5" maxlength="380" name="deskripsi_barang" id="deskripsi_barang"></textarea>
+                                <textarea rows="5" maxlength="380" name="deskripsi_orang" id="deskripsi_orang"></textarea>
                             </div>
                             <div class="ketentuan-penulisan">
-                                <div class="text-penulisan">*Tulis nama barang maks. 380 karakter</div>
+                                <div class="text-penulisan">*Tulis nama orang maks. 380 karakter</div>
                                 <div class="maksimal-penulisan">0/380</div>
                             </div>
                         </div>
@@ -127,6 +120,18 @@
                 value = value.substring(0, 10);
             }
             input.value = value;
+        }
+
+        function formatUsia(input) {
+            // Ambil nilai input, hapus semua yang bukan angka
+            let value = input.value.replace(/\D/g, ''); 
+
+            // Tambahkan "Tahun" jika ada angka yang dimasukkan
+            if (value.length > 0) {
+                input.value = value + ' Tahun';
+            } else {
+                input.value = ''; // Jika tidak ada angka, kembalikan input ke keadaan awal
+            }
         }
 
         function triggerFileInput(inputId) {

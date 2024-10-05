@@ -119,7 +119,7 @@
                         @endif
                     </div>
                     <div class="container-send-message">
-                        <form id="message-form" action="{{ route('komentar.barang', Crypt::encryptString($hilang->id)) }}" method="POST">
+                        <form id="message-form" action="{{ route('komentar.orang', Crypt::encryptString($hilang->id)) }}" method="POST">
                             @csrf
                             <div class="send-button">
                                 <input type="text" id="message" name="komentar" placeholder="Tulis sesuatu" required>

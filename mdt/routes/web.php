@@ -53,4 +53,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('delete-laporan-orang/{encryptedId}', [OrangHilangController::class, 'deleteLaporan'])->name('delete.laporan.orang');
 
     Route::post('komentar-barang/{encryptedId}', [CommentController::class, 'uploadBarang'])->name('komentar.barang');
+    Route::post('komentar-orang/{encryptedId}', [CommentController::class, 'uploadOrang'])->name('komentar.orang');
 });

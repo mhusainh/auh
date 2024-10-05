@@ -16,17 +16,19 @@ class CommentOrang extends Model
      * @var array<int, string|MyEnum>
      */
     protected $fillable = [
-        'nama_orang',
-        'alamat_orang',
-        'deskripsi_orang',
-        'gambar_orang',
-        'usia',
-        'status',
+        'orang_id',
         'user_id',
+        'komentar',
     ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function orangHilang()
+    {
+        return $this->belongsTo(OrangHilang::class);
     }
     /**
      * The attributes that should be hidden for serialization.

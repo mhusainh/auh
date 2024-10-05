@@ -5,6 +5,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\BarangHilangController;
 use App\Http\Controllers\OrangHilangController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CommentController;
 use App\Models\OrangHilang;
 use Illuminate\Support\Facades\Route;
 
@@ -51,4 +52,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('update-status-orang/{encryptedId}', [OrangHilangController::class, 'updateStatus'])->name('update.status.orang');
     Route::delete('delete-laporan-orang/{encryptedId}', [OrangHilangController::class, 'deleteLaporan'])->name('delete.laporan.orang');
 
+    Route::post('komentar-barang/{encryptedId}', [CommentController::class, 'uploadBarang'])->name('komentar.barang');
 });

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class BarangHilang extends Model
+class CommentBarang extends Model
 {
     use HasFactory, Notifiable;
 
@@ -16,26 +16,19 @@ class BarangHilang extends Model
      * @var array<int, string|MyEnum>
      */
     protected $fillable = [
-        'nama_barang',
-        'alamat_barang',
-        'deskripsi_barang',
-        'gambar_barang1',
-        'gambar_barang2',
-        'gambar_barang3',
-        'gambar_barang4',
-        'gambar_barang5',
-        'status',
+        'barang_id',
         'user_id',
-        'tanggal_hilang',
+        'komentar',
     ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function comments()
+    public function barangHilang()
     {
-        return $this->hasMany(CommentBarang::class, 'barang_id'); // Pastikan nama model dan kolom foreign key sesuai
+        return $this->belongsTo(BarangHilang::class);
     }
     /**
      * The attributes that should be hidden for serialization.

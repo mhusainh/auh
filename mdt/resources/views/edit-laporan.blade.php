@@ -14,7 +14,7 @@
                     dengan hati-hati dan pertimbangkan ke mana serta kepada siapa informasi tersebut disebarkan.</div>
                 <div><img src="{{ asset('img/warning.png') }}" alt=""></div>
             </div>
-            <form action="{{ route('upload.barang') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('update.laporan', Crypt::encryptString($barangHilang->id)) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="detail-barang">

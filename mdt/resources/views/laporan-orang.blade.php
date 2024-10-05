@@ -12,51 +12,46 @@
                     <div class="urutkan">Urutkan : </div>
                     <form action="">
                         <select class="terbaru" name="sort" id="sort" onchange="this.form.submit()">
-                            <option value="">Terbaru</option>
-                            <option value="">Terlama</option>
+                            <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Terbaru</option>
+                            <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Terlama</option>
                         </select>
                     </form>
                 </div>
             </div>
-                <div class="main-laporan">
-                    <div class="header-laporan">
-                        <div class="title-user">
-                            <div class="title">Tes</div>
-                            <div class="user"><img src="" alt="">tes</div>
-                        </div>
-                        <div class="date-time">
-                            <div class="date">28 September 2024</div>
-                            <div class="time">7 malam</div>
-                        </div>
+            @foreach ( $orangHilang as $hilang )
+            <div class="main-laporan">
+                <div class="header-laporan">
+                    <div class="title-user">
+                        <div class="title">{{ $hilang->nama_orang }}</div>
+                        <div class="user"><img src="{{ Storage::url($hilang->user->photo) }}" alt="">{{ $hilang->user->name }}</div>
                     </div>
-                    <div class="body-laporan">
-                        <div class="body-laporan-1">
-                            <div class="content-laporan">
-                                <div class="terakhir-dilihat">Lokasi Terakhir : <span>Genuk</span></div>
-                                <div class="terakhir-dilihat">terakhir dilihat : <span>28 September 2024</span></div>
-                                <div class="status">status : <span>Belum ditemukan</span></div>
-                                <div class="detail">Detail : </div>
-                                <div class="content-detail">
-                                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nihil reprehenderit tempora repellendus ipsam enim ea ratione, fugit adipisci incidunt dolores dicta ipsa repellat vitae est illum dolorem, facere, cumque perspiciatis!
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="image-laporan">
-                                <div class="arrow">
-                                    <div class="arrow-left"><</div>
-                                </div>
-                                <div><img src="" alt=""></div>
-                                <div class="arrow">
-                                    <div class="arrow-right">></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="footer-laporan">
-                            <div><span>comment-alt </span>12</div>
-                            <div><span>share-alt </span>11</div>
-                        </div>
+                    <div class="date-time">
+                        <div class="date">{{ \Carbon\Carbon::parse($hilang->created_at)->translatedFormat('d F Y') }}</div>
+                        <div class="time">{{ \Carbon\Carbon::parse($hilang->created_at)->setTimezone('Asia/Jakarta')->format('H:i') }}</div>
                     </div>
                 </div>
+                <div class="body-laporan">
+                    <div class="body-laporan-1">
+                        <div class="content-laporan">
+                            <div class="terakhir-dilihat">Lokasi Terakhir : <span>{{ $hilang->alamat_orang }}</span></div>
+                            <div class="terakhir-dilihat">Umur : <span>{{ $hilang->usia }} Tahun</span></div>
+                            <div class="status">status : <span>{{ $hilang->status }}</span></div>
+                            <div class="detail">Detail : </div>
+                            <div class="content-detail">
+                                <p>{{ $hilang->deskripsi_orang }}</p>
+                            </div>
+                        </div>
+                        <div class="image-laporan">
+                            <div><img src="{{ Storage::url($hilang->gambar_orang) }}" alt=""></div>
+                        </div>
+                    </div>
+                    <div class="footer-laporan">
+                        <div><span>comment-alt </span>12</div>
+                        <div><span>share-alt </span>11</div>
+                    </div>
+                </div>
+            </div>
+            @endforeach   
         </div>
     </div>
     
@@ -189,12 +184,6 @@
     
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-        const images = [
-            "./img/dompet1.png",
-            "./img/dompet2.png",
-            "./img/dompet3.png",
-            "./img/profile.png",
-        ];
         let currentIndex = 0;
         const buatLaporan = document.querySelector('.buat-laporan')
         function updateImage(imageElement, index) {

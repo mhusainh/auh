@@ -81,17 +81,18 @@ class ProfileController extends Controller
 
             if ($request->hasFile('file')) {
                 // Tentukan path direktori gambar
-                $directory = 'images/' . $user->id . '/Profile/';
+                $directory = 'images/' . $user->id . '/Profile';
 
-                // Cek apakah ada file lama di direktori
-                $existingFiles = Storage::files($directory);
-                Storage::delete($existingFiles); // Menghapus semua file lama
+                // Hapus file lama jika ada
+                if ($user->photo && Storage::disk('public')->exists($user->photo)) {
+                    Storage::disk('public')->delete($user->photo); // Hapus hanya file lama yang tersimpan di DB
+                }
 
-                // Simpan gambar baru ke folder "images/{user_id}/profile"
+                // Simpan gambar baru ke folder "images/{user_id}/Profile"
                 $file = $request->file('file');
                 $path = $file->storeAs($directory, $file->hashName(), 'public');
 
-                // Simpan path gambar baru ke dalam database
+                // Update path gambar baru ke database
                 $user->update(['photo' => $path]);
 
                 return response()->json([
@@ -111,7 +112,11 @@ class ProfileController extends Controller
 
     public function showProfile()
     {
-        $barangHilang = BarangHilang::where('user_id', Auth::user()->id)->get();
+        $barangHilang = BarangHilang::where('user_id', Auth::user()->id)
+            ->orderByRaw("CASE WHEN status = 'Belum Ditemukan' THEN 1 ELSE 2 END") // Prioritaskan yang belum ditemukan
+            ->orderBy('created_at', 'desc') // Urutkan berdasarkan yang paling baru
+            ->get();
+
         return view('profile', [
             'title' => 'Profile',
             'barangHilang' => $barangHilang,

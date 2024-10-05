@@ -3,7 +3,9 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\BarangHilangController;
+use App\Http\Controllers\OrangHilangController;
 use App\Http\Controllers\ProfileController;
+use App\Models\OrangHilang;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'guest'], function () {
@@ -19,12 +21,9 @@ Route::group(['middleware' => 'auth'], function () {
     })->name('home');
 
     Route::get('laporan', [BarangHilangController::class, 'showlaporan'])->name('lapor.barang');
-    Route::get('laporan-orang', function () {
-        return view('laporan-orang', ['title' => 'Hubungi Kami']);
-    });
-    Route::get('buat-laporan-orang', function () {
-        return view('buat-laporan-orang', ['title' => 'Hubungi Kami']);
-    });
+    Route::get('laporan-orang', [OrangHilangController::class, 'showlaporan'])->name('lapor.orang');
+    Route::get('buat-laporan-orang', [OrangHilangController::class, 'index'])->name('buat.laporan.orang');
+    Route::post('buat-laporan-orang', [OrangHilangController::class, 'fileUpload'])->name('upload.laporan.orang');
     Route::get('buat-laporan', [BarangHilangController::class, 'index'])->name('buat.laporan');
     Route::post('buat-laporan', [BarangHilangController::class, 'fileUpload'])->name('upload.barang');
     Route::get('contact', function () {
@@ -43,6 +42,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/update-profile/{encryptedId}', [ProfileController::class, 'updatePicture'])->name('edit.profilePicture');
 
     Route::get('edit-laporan/{encryptedId}', [BarangHilangController::class, 'editLaporan'])->name('edit.laporan');
+    Route::put('update-laporan/{encryptedId}', [BarangHilangController::class,'updateLaporan'])->name('update.laporan');
     Route::put('update-status/{encryptedId}', [BarangHilangController::class, 'updateStatus'])->name('update.status');
     Route::delete('delete-laporan/{encryptedId}', [BarangHilangController::class, 'deleteLaporan'])->name('delete.laporan');
+
+
 });

@@ -20,7 +20,7 @@
             <span><img src="svg/dropdown-pelayanan.svg" alt=""></span>
             <ul class="dropdown-menu">
                 <li><a href="{{ route('lapor.barang') }}">Pencarian Barang Hilang</a></li>
-                <li><a href="laporan-orang">Pencarian Orang Hilang</a></li>
+                <li><a href="{{ route('lapor.orang') }}">Pencarian Orang Hilang</a></li>
             </ul>
         </div>
 

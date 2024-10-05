@@ -60,22 +60,28 @@
                         <div class="popup-main">
                     <div class="container-message">
                         <div class="message-laporan">
-                            @foreach($hilang->comments as $comment)
-                            <div class="container-chat-message">
-                                <div class="chat-message-main">
-                                    <div class="time-message">11:21</div>
-                                    <div class="profile-message"><img src="{{ Storage::url($comment->user->photo) }}" alt=""></div>
-                                    <div class="chat-message">{{ $comment->komentar }}</div>
+                            @if($hilang->comments && $hilang->comments->count())
+                        @foreach($hilang->comments as $comment)
+                        <div class="container-chat-message">
+                            <div class="chat-message-main">
+                                <div class="time-message">{{ $comment->created_at->format('H:i') }}</div>
+                                <div class="profile-message">
+                                    <img src="{{ Storage::url($comment->user->photo) }}" alt="">
                                 </div>
+                                <div class="chat-message">{{ $comment->komentar }}</div>
                             </div>
-                            @endforeach
+                        </div>
+                        @endforeach
+                    @else
+                        <p>Belum ada komentar.</p>
+                    @endif
                         </div>
                         <div class="container-send-message">
                             <form id="message-form" action="{{ route('komentar.barang', Crypt::encryptString($hilang->id)) }}" method="POST">
                                 @csrf <!-- Ini akan menyisipkan token CSRF di dalam form -->
                                 <div>
                                     <input type="text" id="message" name="komentar" placeholder="Tulis sesuatu" required>
-                                </div>
+                                </div>  
                                 <div>
                                     <button type="submit"><img src="./img/send.png" alt="Send"></button>                                    
                                 </div>

@@ -123,7 +123,7 @@
                             style="cursor: pointer">
                         <div class="dropdown-content">
                             <div class="dropdown-main">
-                                <a href="{{ route('edit.laporan.orang', Crypt::encryptString($hilang->id)) }}">
+                                <a href="{{ route('edit.laporan.orang', Crypt::encryptString($orang->id)) }}">
                                     <div class="dropdown-main-1">
                                         <img src="img/edit.png" alt="">
                                         <div>Ubah</div>

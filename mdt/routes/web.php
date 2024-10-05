@@ -46,5 +46,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('update-status/{encryptedId}', [BarangHilangController::class, 'updateStatus'])->name('update.status');
     Route::delete('delete-laporan/{encryptedId}', [BarangHilangController::class, 'deleteLaporan'])->name('delete.laporan');
 
+    Route::get('edit-laporan-orang/{encryptedId}', [OrangHilangController::class, 'editLaporan'])->name('edit.laporan.orang');
+    Route::put('update-laporan-orang/{encryptedId}', [OrangHilangController::class, 'updateLaporan'])->name('update.laporan.orang');
+    Route::put('update-status-orang/{encryptedId}', [OrangHilangController::class, 'updateStatus'])->name('update.status.orang');
+    Route::delete('delete-laporan-orang/{encryptedId}', [OrangHilangController::class, 'deleteLaporan'])->name('delete.laporan.orang');
 
 });

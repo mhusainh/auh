@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\BarangHilang;
+use App\Models\OrangHilang;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -117,9 +118,15 @@ class ProfileController extends Controller
             ->orderBy('created_at', 'desc') // Urutkan berdasarkan yang paling baru
             ->get();
 
+        $orangHilang = OrangHilang::where('user_id', Auth::user()->id)
+            ->orderByRaw("CASE WHEN status = 'Belum Ditemukan' THEN 1 ELSE 2 END") // Prioritaskan yang belum ditemukan
+            ->orderBy('created_at', 'desc') // Urutkan berdasarkan yang paling baru
+            ->get();
+
         return view('profile', [
             'title' => 'Profile',
             'barangHilang' => $barangHilang,
+            'orangHilang' => $orangHilang,
         ]);
     }
 }

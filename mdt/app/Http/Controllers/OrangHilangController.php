@@ -80,7 +80,7 @@ class OrangHilangController extends Controller
             $orangHilang->save();
 
             // Kembalikan pesan sukses
-            return redirect()->route('laporan.orang')->with('success', 'Laporan orang hilang berhasil ditambahkan.');
+            return redirect()->route('lapor.orang')->with('success', 'Laporan orang hilang berhasil ditambahkan.');
         } catch (Exception $e) {
             // Tangkap error dan kembalikan pesan error
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
@@ -98,5 +98,73 @@ class OrangHilangController extends Controller
 
 
         return view('laporan-orang', ['title' => 'Orang Hilang'], compact('orangHilang', 'sortOrder'));
+    }
+
+    public function editLaporan (Request $request, $encryptedId) {
+        try {
+            $id = Crypt::decryptString($encryptedId); // Ganti decrypt dengan Crypt::decryptString
+            $orangHilang = OrangHilang::find($id);
+
+            if (!$orangHilang) {
+                return redirect()->back()->with('error', 'Data tidak ditemukan.');
+            }
+
+            return view('edit-laporan-orang', ['title' => 'Edit Laporan'], compact('orangHilang'));
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+            return redirect()->back()->with('error', 'ID yang diberikan tidak valid.');
+        }
+    }
+
+    public function deleteLaporan($encryptedId)
+    {
+        try {
+            // Dekripsi ID
+            $id = Crypt::decryptString($encryptedId);
+
+            // Cari orang hilang berdasarkan ID, jika tidak ditemukan, lempar 404
+            $orangHilang = OrangHilang::findOrFail($id);
+
+            // Daftar field gambar yang akan dihapus jika ada
+            $gambarFields = ['gambar_orang'];
+
+            // Loop melalui field gambar dan hapus jika file-nya ada di storage
+            foreach ($gambarFields as $field) {
+                if ($orangHilang->$field && Storage::disk('public')->exists($orangHilang->$field)) {
+                    Storage::disk('public')->delete($orangHilang->$field); // Hapus file dari storage
+                }
+            }
+
+            // Hapus record orang hilang setelah file dihapus
+            $orangHilang->delete();
+
+            // Redirect dengan pesan sukses
+            return redirect()->back()->with('success', 'Data dan gambar berhasil dihapus.');
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+            return redirect()->back()->with('error', 'ID yang diberikan tidak valid.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
+
+
+    public function updateStatus(Request $request, $encryptedId)
+    {
+        $request->validate([
+            'status' => 'required|in:Sudah Ditemukan',
+        ]);
+        try {
+            $id = Crypt::decryptString($encryptedId);
+            $orangHilang = OrangHilang::findOrFail($id);
+            if (!$orangHilang) {
+                return redirect()->back()->with('error', 'Data tidak ditemukan.');
+            }
+
+            $orangHilang->status = $request->status;
+            
+            $orangHilang->update();
+            return redirect()->back()->with('success', 'Status berhasil diubah.');
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+            return redirect()->back()->with('error', 'ID yang diberikan tidak valid.');
+        }
     }
 }

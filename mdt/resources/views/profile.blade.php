@@ -18,8 +18,7 @@
                 </div>
                 <div class="profile-laporan">
                     <div class="profile-laporan-1 active" onclick="toggleActive('laporan1')">Laporan Barang Hilang</div>
-                    <div class="profile-laporan-2 inactive" onclick="toggleActive('laporan2')">Laporan Orang Hilang
-                    </div>
+                    <div class="profile-laporan-2 inactive" onclick="toggleActive('laporan2')">Laporan Orang Hilang</div>
                 </div>
             </div>
             <div class="profile-main-container">
@@ -90,7 +89,6 @@
                                             </div>
                                         </a>
                                     </form>
-
                                 </div>
                             </div>
                         </div>
@@ -98,20 +96,23 @@
                 @endforeach
             </div>
             <div class="profile-main-container-2" style="display: none">
+                @foreach ( $orangHilang as $orang )
                 <div id="orangHilang" class="profile-main-2">
                     <div class="profile-laporan-image">
-                        <div><img src="img/orang_hilang.png" alt="tes"></div>
+                        <div><img src="{{ storage::url($orang->gambar_orang) }}" alt="tes"></div>
                         <div class="profile-laporan-description">
                             <div class="profile-laporan-title">
-                                <div class="profile-laporan-title-name">Budi Santoso</div>
+                                <div class="profile-laporan-title-name">{{ $orang->nama_orang }}</div>
                                 <div class="profile-laporan-container">
                                     <div class="profile-laporan-lokasi">
                                         <div>Lokasi terakhir : </div>
-                                        <div><span>Jl. Merdeka</span></div>
+                                        <div><span>{{ $orang->alamat_orang }}</span></div>
                                     </div>
                                     <div class="profile-laporan-status">
                                         <div>Status : </div>
-                                        <div><span class="status-text">Belum ditemukan</span></div>
+                                        <div><span class="status-text {{ $orang->status === 'Sudah Ditemukan' ? 'status-found' : '' }}">
+                                            {{ $orang->status }}
+                                        </span></div>
                                     </div>
                                 </div>
                             </div>
@@ -121,30 +122,49 @@
                         <img src="img/more_vert.png" alt="more" onclick="toggleDropdown(this)"
                             style="cursor: pointer">
                         <div class="dropdown-content">
-                            <div class="dropdown-main"><a href="/edit-laporan">
+                            <div class="dropdown-main">
+                                <a href="{{ route('edit.laporan.orang', Crypt::encryptString($hilang->id)) }}">
                                     <div class="dropdown-main-1">
                                         <img src="img/edit.png" alt="">
                                         <div>Ubah</div>
                                     </div>
                                 </a>
                             </div>
-                            <div class="dropdown-main"><a href="javascript:void(0);" onclick="markAsFound(this)">
-                                    <div class="dropdown-main-1">
-                                        <img src="img/check_box.png" alt="">
-                                        <div>Sudah ditemukan</div>
-                                    </div>
-                                </a>
+                            <div class="dropdown-main">
+                                <form id="status-form-{{ $orang->id }}"
+                                    action="{{ route('update.status.orang', Crypt::encryptString($orang->id)) }}" 
+                                    method="POST">
+                                    @csrf
+                                    @method('PUT') <!-- Method override for PUT -->
+                                    <input type="hidden" name="status" value="Sudah Ditemukan">
+                                    <a href="javascript:void(0);" 
+                                        onclick="document.getElementById('status-form-{{ $orang->id }}').submit()">
+                                        <div class="dropdown-main-1">
+                                            <img src="img/check_box.png" alt="">
+                                            <div>Sudah ditemukan</div>
+                                        </div>
+                                    </a>
+                                </form>
                             </div>
-                            <div class="dropdown-main"><a href="#">
-                                    <div class="dropdown-main-1">
-                                        <img src="img/delete.png" alt="">
-                                        <div><span>Hapus</span></div>
-                                    </div>
-                                </a>
+                            <div class="dropdown-main">
+                                <form id="delete-form-{{ $orang->id }}"
+                                    action="{{ route('delete.laporan.orang', Crypt::encryptString($orang->id)) }}"
+                                    method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <a href="javascript:void(0);"
+                                        onclick="confirmDelete('delete-form-{{ $orang->id }}')">
+                                        <div class="dropdown-main-1">
+                                            <img src="img/delete.png" alt="">
+                                            <div><span>Hapus</span></div>
+                                        </div>
+                                    </a>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
+                @endforeach
             </div>
         </div>
     </div>

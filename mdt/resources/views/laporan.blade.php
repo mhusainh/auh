@@ -57,7 +57,7 @@
                             </div>
                         </div>
                         <div class="footer-laporan">
-                            <div><span>comment-alt</span> 11</div>
+                            <div><span>comment-alt</span> {{ $hilang->comments->count() }}</div>
                             <div><span>share-alt</span> 11</div>
                         </div>
                     </div>

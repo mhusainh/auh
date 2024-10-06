@@ -28,6 +28,10 @@ class OrangHilang extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function comments()
+    {
+        return $this->hasMany(CommentOrang::class, 'orang_id'); // Pastikan nama model dan kolom foreign key sesuai
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

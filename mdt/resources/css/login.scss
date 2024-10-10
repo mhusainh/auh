@@ -1,0 +1,80 @@
+.container-logout,
+.container-login {
+    width: 100%;
+    background-color: #090909;
+    display: flex;
+    .logo-polda {
+        img {
+            width: 50vw;
+            height: 100vh;
+        }
+    }
+    .logo-tik {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        height: 100vh;
+        img {
+            width: 50vw;
+            height: 50vh;
+        }
+    }
+    h1 {
+        color: #000000;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    .form-login,
+    .form-register {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50vw;
+        background-color: #FFFFFF;
+        font-family: "Poppins", sans-serif;
+        flex-direction: column;
+        gap: 23px;
+        border-bottom-left-radius: 40px;
+        border-top-left-radius: 40px;
+        form {
+            display: flex;
+            gap: 23px;
+            flex-direction: column;
+            input{
+                width: 350px;
+                height: 53px;
+                border: 3px solid black;
+                border-radius: 17px;
+                padding: 20px;
+                font-size: 16px;
+            }
+            button{
+                width: 350px;
+                height: 53px;
+                border: 3px solid #002775;
+                background-color: #002875;
+                border-radius: 17px;
+                color: #FFFFFF;
+                font-size: 18px;
+                font-weight: bold;
+            }
+            .invalid-feedback {
+                font-size: 14px;
+                margin-left: 5px;
+                margin-top: -15px; /* Supaya alert tidak terlalu jauh dari input */
+                margin-bottom: -15px; /* Menyesuaikan agar alert ada di antara jarak input */
+            }
+        
+        }
+    }
+    
+}
+
+.dont-have-account {
+    margin-top: -10px;
+    color: blue;
+    text-decoration: underline;
+    margin-bottom: -10px;
+    margin-left: 5px;
+    cursor: pointer;
+}

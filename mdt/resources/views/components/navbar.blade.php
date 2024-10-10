@@ -4,7 +4,7 @@
     </div>
     <div class="navbar-mobile">
         <div class="main-notifikasi">
-            <div class="notifikasi"></div>
+            {{-- <div class="notifikasi"></div> --}}
         </div>
         <div class="navbar-toggle">
             <span></span>
@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="main-notifikasi">
-                <div class="notifikasi"></div>
+                {{-- <div class="notifikasi"></div> --}}
             </div>
         </div>
     </div>
